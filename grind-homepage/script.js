@@ -2,6 +2,170 @@ const header = document.querySelector(".site-header");
 const heroPanels = document.querySelectorAll(".hero-panel");
 const heroDots = document.querySelectorAll(".hero-dots span");
 const CART_KEY = "grindCart";
+const PRODUCTS = {
+  "grind-pusa-2026": {
+    title: "GRIND pusa 2026",
+    price: 79.9,
+    image: "../assets/white-bg/pusa 1.png",
+    description: "Soe ja vastupidav pusa, mis sobib nii rulaparki kui igapäevaseks kandmiseks. Pehme sisemus ja tugev kangas hoiavad mugavust kogu päeva.",
+    productCode: "GRD-PUSA-2601",
+    styleCode: "GP26-BLK-A",
+    sizes: ["XS", "S", "M", "L", "XL"]
+  },
+  "butterco-mustad-teksad-2026": {
+    title: "BUTTER'CO teksad 2026",
+    price: 89.9,
+    image: "../assets/white-bg/teksad1.png",
+    description: "Laiema lõikega mustad teksad, mis annavad sõitmiseks ruumi ja hoiavad tänavastiili puhtana. Tugev denim sobib aktiivseks kasutuseks.",
+    productCode: "BTR-DNM-2602",
+    styleCode: "BC26-BLK-DNM",
+    sizes: ["28", "30", "32", "34", "36"]
+  },
+  "grind-pusa-tagant-2026": {
+    title: "GRIND pusa 2026",
+    price: 84.9,
+    image: "../assets/white-bg/pusa 2.png",
+    description: "Suure seljagraafikaga pusa neile, kelle stiil peab olema nähtav ka pärast trikki. Pehme kapuuts ja tugevad soonikud teevad sellest igapäevase lemmiku.",
+    productCode: "GRD-PUSA-2603",
+    styleCode: "GP26-BLK-B",
+    sizes: ["XS", "S", "M", "L", "XL"]
+  },
+  "grind-sark-2026": {
+    title: "GRIND särk 2026",
+    price: 34.9,
+    image: "../assets/white-bg/tsark1.png",
+    description: "Must graafiline särk, mis on loodud kergeks kandmiseks ja kihiliseks tänavastiiliks. Pehme puuvillane tunne sobib nii suveks kui hoodie alla.",
+    productCode: "GRD-TEE-2604",
+    styleCode: "GT26-BLK-A",
+    sizes: ["XS", "S", "M", "L", "XL"]
+  },
+  "starshoe-tossud-2026": {
+    title: "STARSHOE tossud 2026",
+    price: 129.9,
+    image: "../assets/white-bg/tossud1.png",
+    description: "STARSHOE tossud on loodud igapäevaseks sõiduks ja tänavastiiliks. Tugev tald, pehme sisemus ja vastupidav pealis hoiavad jalga mugavalt ka pikematel päevadel.",
+    productCode: "STR-SHOE-2605",
+    styleCode: "SS26-BLK-WHT",
+    sizes: ["EU 7.5", "EU 8", "EU 9", "EU 9.5", "EU 11", "EU 12.5"]
+  },
+  "butterco-sinised-teksad-2026": {
+    title: "BUTTER'CO teksad 2026",
+    price: 94.9,
+    image: "../assets/white-bg/teksad 2.png",
+    description: "Sinised BUTTER'CO teksad ühendavad klassikalise denimi ja skate-lõike. Graafilised detailid lisavad iseloomu ilma mugavust ära võtmata.",
+    productCode: "BTR-DNM-2606",
+    styleCode: "BC26-BLU-DNM",
+    sizes: ["28", "30", "32", "34", "36"]
+  },
+  "grind-sark-klassik-2026": {
+    title: "GRIND särk Klassik 2026",
+    price: 32.9,
+    image: "../assets/white-bg/tsark1.png",
+    description: "Klassikalise lõikega GRIND särk, mis töötab iga komplektiga. Sobib sõitmiseks, linnas käimiseks ja igapäevaseks kandmiseks.",
+    productCode: "GRD-TEE-2607",
+    styleCode: "GT26-BLK-K",
+    sizes: ["XS", "S", "M", "L", "XL"]
+  },
+  "starshoe-tossud-pro-2026": {
+    title: "STARSHOE tossud Pro 2026",
+    price: 139.9,
+    image: "../assets/white-bg/tossud1.png",
+    description: "Pro-versioon on tugevdatud küljeosa ja stabiilsema tallaga. Hea valik sõitjale, kes tahab tossult rohkem tuge ja pikemat eluiga.",
+    productCode: "STR-SHOE-2608",
+    styleCode: "SS26-PRO-BW",
+    sizes: ["EU 7.5", "EU 8", "EU 9", "EU 9.5", "EU 11", "EU 12.5"]
+  },
+  "butterco-teksad-light-2026": {
+    title: "BUTTER'CO teksad Light 2026",
+    price: 99.9,
+    image: "../assets/white-bg/teksad 2.png",
+    description: "Heledama pesuga teksad, mis sobivad hästi mustade tossude ja graafiliste särkidega. Mugav lõige annab liikumiseks vabadust.",
+    productCode: "BTR-DNM-2609",
+    styleCode: "BC26-BLU-LT",
+    sizes: ["28", "30", "32", "34", "36"]
+  },
+  "butterco-rula-valge-2022": {
+    title: "BUTTER'CO rula 2022",
+    price: 119.9,
+    image: "../assets/white-bg/rulkatoode1.png",
+    description: "Valge graafikaga complete-rula alustavale ja edasijõudnud sõitjale. Stabiilne laud sobib linnas kruiisimiseks ja esimesteks trikkideks.",
+    productCode: "BTR-SKB-2201",
+    styleCode: "BC22-WHT-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-graffiti-2026": {
+    title: "BUTTER'CO rula 2026",
+    price: 129.9,
+    image: "../assets/white-bg/rula2.png",
+    description: "Graffiti-stiilis rula on kiire, kerge ja valmis tänavasõiduks. Hea valik sõitjale, kes tahab silmapaistvat disaini.",
+    productCode: "BTR-SKB-2602",
+    styleCode: "BC26-GRF-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-must-2026": {
+    title: "BUTTER'CO rula Must 2026",
+    price: 134.9,
+    image: "../assets/white-bg/rula4.png",
+    description: "Must BUTTER'CO complete-rula tugeva graafika ja kindla tunnetusega. Sobib parki, tänavale ja igapäevaseks sõiduks.",
+    productCode: "BTR-SKB-2603",
+    styleCode: "BC26-BLK-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-classic-2022": {
+    title: "BUTTER'CO rula Classic 2022",
+    price: 109.9,
+    image: "../assets/white-bg/rulkatoode1.png",
+    description: "Klassikaline complete-rula neile, kes tahavad lihtsat ja töökindlat lauda. Puhas disain ja hea kontroll igapäevaseks sõiduks.",
+    productCode: "BTR-SKB-2204",
+    styleCode: "BC22-CLS-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-street-2026": {
+    title: "BUTTER'CO rula Street 2026",
+    price: 139.9,
+    image: "../assets/white-bg/rula2.png",
+    description: "Street-seeria laud on tehtud kiireteks liinideks ja tehnilisteks trikkideks. Vastupidav komplekt annab kindla tunnetuse jala all.",
+    productCode: "BTR-SKB-2605",
+    styleCode: "BC26-ST-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-night-2026": {
+    title: "BUTTER'CO rula Night 2026",
+    price: 144.9,
+    image: "../assets/white-bg/rula4.png",
+    description: "Tume ja terav rula neile, kes eelistavad minimalistlikku välimust. Laud on valmis nii pargiks kui tänavaks.",
+    productCode: "BTR-SKB-2606",
+    styleCode: "BC26-NGT-CMP",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-mini-2022": {
+    title: "BUTTER'CO rula Mini 2022",
+    price: 99.9,
+    image: "../assets/white-bg/rulkatoode1.png",
+    description: "Väiksem ja kergem complete-rula nooremale sõitjale või neile, kes tahavad lihtsamat kontrolli.",
+    productCode: "BTR-SKB-2207",
+    styleCode: "BC22-MINI",
+    sizes: ["7.5", "7.75", "8.0"]
+  },
+  "butterco-rula-rail-2026": {
+    title: "BUTTER'CO rula Rail 2026",
+    price: 149.9,
+    image: "../assets/white-bg/rula2.png",
+    description: "Rail-seeria on tehtud sõitjale, kes tahab proovida rohkem grind'e ja slide'e. Tugev komplekt peab paremini vastu.",
+    productCode: "BTR-SKB-2608",
+    styleCode: "BC26-RAIL",
+    sizes: ["7.75", "8.0", "8.25"]
+  },
+  "butterco-rula-logo-2026": {
+    title: "BUTTER'CO rula Logo 2026",
+    price: 134.9,
+    image: "../assets/white-bg/rula4.png",
+    description: "Logo-graafikaga rula ühendab lihtsa välimuse ja tugeva sõidutunde. Sobib hästi igapäevaseks kasutuseks.",
+    productCode: "BTR-SKB-2609",
+    styleCode: "BC26-LOGO",
+    sizes: ["7.75", "8.0", "8.25"]
+  }
+};
 
 function updateHeaderVisibility() {
   if (!header) return;
@@ -42,12 +206,56 @@ function formatPrice(value) {
   return `€${Number(value).toFixed(2)}`;
 }
 
+function getProductFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id") || "starshoe-tossud-2026";
+  return { id, product: PRODUCTS[id] || PRODUCTS["starshoe-tossud-2026"] };
+}
+
+function renderProductDetail() {
+  const productDetail = document.querySelector(".product-detail");
+  if (!productDetail) return;
+
+  const { id, product } = getProductFromUrl();
+  const detailImage = document.querySelector(".detail-image");
+  const title = document.querySelector("#detail-title");
+  const price = document.querySelector(".detail-price");
+  const sizeList = document.querySelector(".size-list");
+  const productCode = document.querySelector("[data-product-code]");
+  const styleCode = document.querySelector("[data-style-code]");
+  const description = document.querySelector("[data-product-description]");
+
+  productDetail.dataset.productId = id;
+  productDetail.dataset.productTitle = product.title;
+  productDetail.dataset.productPrice = product.price;
+  productDetail.dataset.productImage = product.image;
+  productDetail.dataset.productDescription = product.description;
+
+  document.title = `Grind | ${product.title}`;
+  if (detailImage) {
+    detailImage.src = product.image;
+    detailImage.alt = product.title;
+  }
+  if (title) title.textContent = product.title;
+  if (price) price.textContent = formatPrice(product.price);
+  if (productCode) productCode.textContent = product.productCode;
+  if (styleCode) styleCode.textContent = product.styleCode;
+  if (description) description.textContent = product.description;
+  if (sizeList) {
+    sizeList.innerHTML = product.sizes
+      .map((size, index) => `<button class="${index === 0 ? "active" : ""}" type="button">${size}</button>`)
+      .join("");
+  }
+}
+
 function getSelectedSize() {
   const selected = document.querySelector(".size-list button.active");
   return selected ? selected.textContent.trim() : "EU 9,5";
 }
 
 function setupDetailCartButton() {
+  renderProductDetail();
+
   const productDetail = document.querySelector(".product-detail");
   const cartButton = document.querySelector(".cart-button");
 
