@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grind | Detailileht</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Grind avaleht">
+      <img src="../assets/logo2-04.svg" alt="" aria-hidden="true">
+      <span class="brand-word">Gr<span>i</span>nd</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Peamenüü">
+      <a href="index.html#new">Uued tulijad</a>
+      <a href="tooted.html">Tooted</a>
+      <a href="rulad.html">Rulad</a>
+      <a href="tooted.html">Tossud</a>
+      <a href="tooted.html">Riietus</a>
+      <a href="kontaktivorm.html">Kontakt</a>
+      <a href="index.html#mission">Meie missioon</a>
+      <a href="tellimus.html">Ostukorv</a>
+    </nav>
+  </header>
+
+  <main class="detail-page">
+    <section class="product-detail" aria-labelledby="detail-title">
+      <img class="detail-image" src="../assets/tossud1.png" alt="STARSHOE tossud 2026">
+
+      <div class="detail-info">
+        <h1 id="detail-title">STARSHOE tossud 2026</h1>
+        <p class="detail-price">€129.90</p>
+
+        <div class="size-list" aria-label="Vali suurus">
+          <button type="button">EU 7.5</button>
+          <button type="button">EU 8</button>
+          <button type="button">EU 9</button>
+          <button type="button">EU 9.5</button>
+          <button type="button" disabled>EU 10</button>
+          <button type="button">EU 11</button>
+          <button type="button">EU 12.5</button>
+        </div>
+
+        <button class="cart-button" type="button">Lisa ostukorvi</button>
+
+        <dl class="detail-meta">
+          <div>
+            <dt>Tootekood:</dt>
+            <dd>256749382319</dd>
+          </div>
+          <div>
+            <dt>Stiilikood:</dt>
+            <dd>A765P576</dd>
+          </div>
+        </dl>
+
+        <h2>Toote kirjeldus:</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-brand">
+      <img src="../assets/LOGO1-03.svg" alt="Grind">
+    </div>
+
+    <address class="footer-contact">
+      <strong>Kontaktid</strong>
+      <span>Reg nr 82345784</span>
+      <span>E-R 10-21 · L-P 12-19</span>
+      <span>+372 5997 3484</span>
+      <span>grindshop@help.com</span>
+    </address>
+
+    <form class="newsletter" action="#" method="post">
+      <label for="email">Ühine meie uudiskirjaga</label>
+      <div class="newsletter-row">
+        <input id="email" name="email" type="email" placeholder="Email aadress" aria-label="Email aadress" autocomplete="email">
+        <button type="submit" aria-label="Liitu uudiskirjaga">›</button>
+      </div>
+    </form>
+  </footer>
+</body>
+</html>
