@@ -8,24 +8,22 @@ The code expects the original images to stay in the shared folder:
 C:\Users\rohtl\Desktop\examdevin\assets
 ```
 
-Expected image filenames:
+Image filenames currently used by `index.html`:
 
 ```text
-logo.png
-logo-white.png
-hero-left.jpg
-hero-center.jpg
-hero-right.jpg
-event-viljandi.jpg
-event-parnu.jpg
-event-tartu.jpg
-product-hoodie-front.png
-product-jeans-black.png
-product-hoodie-back.png
-product-shirt.png
-product-shoes.png
-product-jeans-blue.png
-storefront.jpg
+model2.png
+model3.png
+model1.png
+c2d8a1de-3a90-4cfd-9951-402cb8ab23e7.png
+4defcfab-3308-42a1-aaac-4bd4712d5ee3.png
+80615b5d-575e-4ca6-97b8-1c8e20ad7309.png
+pusa 1.png
+teksad1.png
+pusa 2.png
+tsark1.png
+tossud1.png
+teksad 2.png
+b395f608-cf33-40d4-88d4-ff8853c867b8.png
 ```
 
-If your images have different names, rename them to these names or update the `src="../assets/..."` paths in `index.html`.
+The header and footer logos are built with CSS because there is no separate logo image file in the asset folder.
