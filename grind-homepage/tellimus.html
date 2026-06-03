@@ -29,67 +29,28 @@
 
   <main class="order-page">
     <section class="order-layout" aria-label="Tellimus">
-      <div class="cart-list">
-        <article class="cart-item">
-          <img src="../assets/tossud1.png" alt="STARSHOE tossud 2026">
-          <div class="cart-copy">
-            <h1>STARSHOE tossud 2026</h1>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when</p>
-            <span>EU 9,5</span>
-          </div>
-          <div class="cart-price">
-            <strong>€129.90</strong>
-            <label>Kogus: <input type="number" min="1" value="1"></label>
-            <button type="button" aria-label="Eemalda toode">■</button>
-          </div>
-        </article>
-
-        <article class="cart-item">
-          <img src="../assets/tossud1.png" alt="STARSHOE tossud 2026">
-          <div class="cart-copy">
-            <h2>STARSHOE tossud 2026</h2>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when</p>
-            <span>EU 9,5</span>
-          </div>
-          <div class="cart-price">
-            <strong>€129.90</strong>
-            <label>Kogus: <input type="number" min="1" value="1"></label>
-            <button type="button" aria-label="Eemalda toode">■</button>
-          </div>
-        </article>
-
-        <article class="cart-item">
-          <img src="../assets/tossud1.png" alt="STARSHOE tossud 2026">
-          <div class="cart-copy">
-            <h2>STARSHOE tossud 2026</h2>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when</p>
-            <span>EU 9,5</span>
-          </div>
-          <div class="cart-price">
-            <strong>€129.90</strong>
-            <label>Kogus: <input type="number" min="1" value="1"></label>
-            <button type="button" aria-label="Eemalda toode">■</button>
-          </div>
-        </article>
-      </div>
+      <div class="cart-list" data-cart-list></div>
 
       <aside class="order-summary" aria-label="Tellimuse kokkuvõte">
         <div class="summary-row">
           <span>Saatmine:</span>
-          <strong>€29.90</strong>
+          <strong data-shipping-total>€0.00</strong>
         </div>
         <div class="summary-row">
           <span>Käibemaks:</span>
-          <strong>€348.80</strong>
+          <strong data-tax-total>€0.00</strong>
         </div>
         <div class="summary-total">
           <span>Kokku:</span>
-          <strong>€322.90</strong>
+          <strong data-order-total>€0.00</strong>
         </div>
 
         <div class="payment-buttons">
-          <button class="pay-card" type="button">Maksma</button>
-          <button class="pay-paypal" type="button"><span>p</span> Maksma</button>
+          <button class="pay-card" type="button">Maksa</button>
+          <button class="pay-paypal" type="button">
+            <img src="../assets/icons8-paypal.svg" alt="">
+            Maksa
+          </button>
           <button class="pay-apple" type="button">Apple Pay</button>
         </div>
       </aside>
@@ -117,5 +78,6 @@
       </div>
     </form>
   </footer>
-  <script src="script.js"></script>`r`n</body>
+  <script src="script.js"></script>
+</body>
 </html>

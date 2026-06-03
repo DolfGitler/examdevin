@@ -10,14 +10,23 @@
   --line: #d7d7d7;
   --red: #e31828;
   --page-width: 1920px;
+  --type-xs: 9px;
+  --type-sm: 12px;
+  --type-md: 16px;
+  --type-lg: 21px;
+  --type-xl: 28px;
+  --type-2xl: 38px;
+  --type-3xl: 51px;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--dark);
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
   background: #ffffff;
   color: var(--text);
   font-family: Inter, Arial, Helvetica, sans-serif;
@@ -102,7 +111,7 @@ input:focus-visible {
   width: 139px;
   height: 64px;
   color: #000000;
-  font-size: 46px;
+  font-size: var(--type-3xl);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -119,7 +128,7 @@ input:focus-visible {
   gap: clamp(16px, 2vw, 34px);
   padding: 0 24px 8px;
   color: var(--black);
-  font-size: 10.5px;
+  font-size: var(--type-xs);
   font-weight: 800;
   line-height: 1;
   text-transform: uppercase;
@@ -235,14 +244,14 @@ input:focus-visible {
 .hero-year span {
   display: block;
   margin-bottom: 8px;
-  font-size: 11px;
+  font-size: var(--type-sm);
   font-weight: 800;
   letter-spacing: 0.03em;
 }
 
 .hero-year strong {
   display: block;
-  font-size: 44px;
+  font-size: var(--type-2xl);
   font-weight: 400;
   line-height: 0.9;
 }
@@ -282,7 +291,7 @@ input:focus-visible {
 .events h1,
 .products h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--type-lg);
   font-weight: 900;
   line-height: 1;
   text-align: center;
@@ -323,7 +332,7 @@ input:focus-visible {
 
 .event-card h2 {
   margin: 0 0 17px;
-  font-size: 13px;
+  font-size: var(--type-sm);
   font-weight: 900;
   line-height: 1;
   text-align: center;
@@ -331,7 +340,7 @@ input:focus-visible {
 
 .event-card p {
   margin: 0;
-  font-size: 10px;
+  font-size: var(--type-xs);
   line-height: 1.35;
   text-align: center;
 }
@@ -348,7 +357,7 @@ input:focus-visible {
   background: #6f6f6f;
   border: 0;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: var(--type-lg);
   line-height: 1;
   cursor: pointer;
   transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
@@ -408,7 +417,7 @@ input:focus-visible {
 
 .product-card h3 {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--type-sm);
   font-weight: 900;
   line-height: 1.28;
   text-align: center;
@@ -438,21 +447,21 @@ input:focus-visible {
 
 .mission-text h2 {
   margin: 0 0 31px;
-  font-size: 20px;
+  font-size: var(--type-lg);
   font-weight: 900;
   line-height: 1;
 }
 
 .mission-text h3 {
   margin: 0 0 11px;
-  font-size: 14px;
+  font-size: var(--type-md);
   font-weight: 900;
 }
 
 .mission-text p {
   max-width: 470px;
   margin: 0 0 27px;
-  font-size: 13px;
+  font-size: var(--type-sm);
   line-height: 1.55;
 }
 
@@ -465,6 +474,7 @@ input:focus-visible {
   height: 150px;
   background: var(--dark);
   color: #ffffff;
+  margin-bottom: 0;
 }
 
 .footer-brand {
@@ -486,12 +496,12 @@ input:focus-visible {
 .footer-contact strong,
 .newsletter label {
   margin-bottom: 6px;
-  font-size: 11px;
+  font-size: var(--type-sm);
   font-weight: 900;
 }
 
 .footer-contact span {
-  font-size: 9px;
+  font-size: var(--type-xs);
   line-height: 1.05;
 }
 
@@ -522,7 +532,7 @@ input:focus-visible {
   background: transparent;
   border: 0;
   outline: 0;
-  font-size: 10px;
+  font-size: var(--type-xs);
   cursor: text;
 }
 
@@ -540,7 +550,7 @@ input:focus-visible {
   background: var(--red);
   border: 0;
   border-radius: 50%;
-  font-size: 19px;
+  font-size: var(--type-lg);
   line-height: 1;
   cursor: pointer;
   transition: background 180ms ease, transform 180ms ease;
@@ -569,7 +579,7 @@ input:focus-visible {
 
 .catalog-products h1 {
   margin: 0 0 62px;
-  font-size: 27px;
+  font-size: var(--type-xl);
   font-weight: 900;
   line-height: 1;
   text-align: center;
@@ -613,7 +623,7 @@ input:focus-visible {
   place-items: center;
   margin: 0;
   padding: 0 18px;
-  font-size: 16px;
+  font-size: var(--type-md);
   font-weight: 900;
   line-height: 1.15;
   text-align: center;
@@ -647,14 +657,14 @@ input:focus-visible {
 
 .detail-info h1 {
   margin: 0 0 24px;
-  font-size: 29px;
+  font-size: var(--type-xl);
   font-weight: 900;
   line-height: 1;
 }
 
 .detail-price {
   margin: 0 0 32px;
-  font-size: 20px;
+  font-size: var(--type-lg);
   font-weight: 900;
 }
 
@@ -671,7 +681,7 @@ input:focus-visible {
   padding: 0 8px;
   background: #ffffff;
   border: 1px solid #6d6d6d;
-  font-size: 9px;
+  font-size: var(--type-xs);
   font-weight: 800;
   cursor: pointer;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
@@ -681,6 +691,11 @@ input:focus-visible {
   color: #ffffff;
   background: #000000;
   transform: translateY(-2px);
+}
+
+.size-list button.active {
+  color: #ffffff;
+  background: #000000;
 }
 
 .size-list button:disabled {
@@ -697,7 +712,7 @@ input:focus-visible {
   background: #000000;
   border: 0;
   border-radius: 999px;
-  font-size: 10px;
+  font-size: var(--type-xs);
   font-weight: 900;
   text-transform: uppercase;
   cursor: pointer;
@@ -711,7 +726,7 @@ input:focus-visible {
 
 .detail-meta {
   margin: 0 0 13px;
-  font-size: 10px;
+  font-size: var(--type-xs);
 }
 
 .detail-meta div {
@@ -730,13 +745,13 @@ input:focus-visible {
 
 .detail-info h2 {
   margin: 0 0 8px;
-  font-size: 11px;
+  font-size: var(--type-sm);
   font-weight: 900;
 }
 
 .detail-info p {
   margin: 0 0 20px;
-  font-size: 10px;
+  font-size: var(--type-xs);
   line-height: 1.35;
 }
 
@@ -753,7 +768,7 @@ input:focus-visible {
 
 .contact-form-section h1 {
   margin: 0 0 66px;
-  font-size: 26px;
+  font-size: var(--type-xl);
   font-weight: 900;
   line-height: 1;
   text-align: center;
@@ -775,7 +790,7 @@ input:focus-visible {
 .contact-form label {
   display: grid;
   gap: 12px;
-  font-size: 23px;
+  font-size: var(--type-lg);
   font-weight: 400;
 }
 
@@ -785,7 +800,7 @@ input:focus-visible {
   background: #eeeeee;
   border: 0;
   outline: 0;
-  font-size: 18px;
+  font-size: var(--type-md);
   transition: box-shadow 180ms ease, background 180ms ease;
 }
 
@@ -821,7 +836,7 @@ input:focus-visible {
   background: #202020;
   border: 0;
   border-radius: 999px;
-  font-size: 23px;
+  font-size: var(--type-lg);
   font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
@@ -853,6 +868,12 @@ input:focus-visible {
   gap: 36px;
 }
 
+.empty-cart {
+  margin: 0;
+  font-size: var(--type-lg);
+  font-weight: 900;
+}
+
 .cart-item {
   display: grid;
   grid-template-columns: 185px 1fr 120px;
@@ -870,7 +891,7 @@ input:focus-visible {
 .cart-copy h1,
 .cart-copy h2 {
   margin: 7px 0 8px;
-  font-size: 25px;
+  font-size: var(--type-xl);
   font-weight: 900;
   line-height: 1;
 }
@@ -878,7 +899,7 @@ input:focus-visible {
 .cart-copy p {
   max-width: 300px;
   margin: 0 0 9px;
-  font-size: 10px;
+  font-size: var(--type-xs);
   line-height: 1.25;
 }
 
@@ -888,7 +909,7 @@ input:focus-visible {
   height: 18px;
   padding: 0 7px;
   border: 1px solid #000000;
-  font-size: 9px;
+  font-size: var(--type-xs);
   font-weight: 700;
 }
 
@@ -900,7 +921,7 @@ input:focus-visible {
 
 .cart-price strong {
   margin-bottom: 18px;
-  font-size: 22px;
+  font-size: var(--type-lg);
   font-weight: 900;
 }
 
@@ -909,30 +930,38 @@ input:focus-visible {
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  font-size: 10px;
+  font-size: var(--type-xs);
 }
 
 .cart-price input {
-  width: 38px;
-  height: 22px;
-  padding: 0 4px;
+  width: 58px;
+  height: 32px;
+  padding: 0 6px;
   border: 1px solid #777777;
   text-align: center;
 }
 
-.cart-price button {
+.cart-price .remove-item {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
   padding: 0;
-  color: #000000;
   background: transparent;
   border: 0;
-  font-size: 10px;
   cursor: pointer;
-  transition: color 180ms ease, transform 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.cart-price button:hover {
-  color: var(--red);
+.cart-price .remove-item:hover {
+  opacity: 0.7;
   transform: scale(1.2);
+}
+
+.cart-price .remove-item img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
 .order-summary {
@@ -946,7 +975,7 @@ input:focus-visible {
   display: flex;
   justify-content: space-between;
   gap: 90px;
-  font-size: 15px;
+  font-size: var(--type-md);
   font-weight: 900;
 }
 
@@ -971,7 +1000,7 @@ input:focus-visible {
   height: 36px;
   color: #ffffff;
   border: 0;
-  font-size: 15px;
+  font-size: var(--type-md);
   font-weight: 900;
   cursor: pointer;
   transition: filter 180ms ease, transform 180ms ease;
@@ -987,14 +1016,17 @@ input:focus-visible {
 }
 
 .pay-paypal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: #3c3296;
 }
 
-.pay-paypal span {
-  color: #16a9e8;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 0;
+.pay-paypal img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pay-apple {
@@ -1104,14 +1136,14 @@ input:focus-visible {
   }
 
   .brand-word {
-    font-size: 38px;
+    font-size: var(--type-2xl);
   }
 
   .main-nav {
     flex-wrap: wrap;
     gap: 10px 16px;
     padding: 0 14px 14px;
-    font-size: 10px;
+    font-size: var(--type-xs);
   }
 
   .hero {
@@ -1193,11 +1225,11 @@ input:focus-visible {
 
   .contact-form-section h1 {
     margin-bottom: 42px;
-    font-size: 22px;
+    font-size: var(--type-lg);
   }
 
   .contact-form label {
-    font-size: 18px;
+    font-size: var(--type-md);
   }
 
   .contact-form input {
@@ -1212,7 +1244,7 @@ input:focus-visible {
   .contact-submit {
     min-width: 220px;
     height: 58px;
-    font-size: 17px;
+    font-size: var(--type-md);
   }
 
   .order-layout {
@@ -1237,7 +1269,7 @@ input:focus-visible {
 
   .cart-copy h1,
   .cart-copy h2 {
-    font-size: 18px;
+    font-size: var(--type-md);
   }
 
   .summary-row,
@@ -1257,7 +1289,7 @@ input:focus-visible {
   }
 
   .brand-word {
-    font-size: 32px;
+    font-size: var(--type-xl);
   }
 
   .hero-panel {
