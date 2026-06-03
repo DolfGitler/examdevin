@@ -297,22 +297,44 @@ input:focus-visible {
   text-align: center;
 }
 
+.events-slider {
+  width: 1068px;
+  max-width: calc(100vw - 120px);
+  margin: 62px auto 0;
+  overflow: hidden;
+}
+
 .events-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 320px);
-  justify-content: center;
+  display: flex;
+  justify-content: flex-start;
   gap: 54px;
-  margin-top: 62px;
+  margin-top: 0;
+  transition: transform 450ms ease;
 }
 
 .event-card {
+  flex: 0 0 320px;
   width: 320px;
-  min-height: 352px;
-  padding: 28px 28px 24px;
+  height: 370px;
+  overflow-y: auto;
+  padding: 24px 28px 18px;
   background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 15px;
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.event-card::-webkit-scrollbar {
+  width: 7px;
+}
+
+.event-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.event-card::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 999px;
 }
 
 .event-card:hover {
@@ -324,14 +346,14 @@ input:focus-visible {
 .event-card img {
   width: 100%;
   height: 112px;
-  margin-bottom: 37px;
+  margin-bottom: 24px;
   background: #d6d6d6;
   object-fit: cover;
   object-position: center;
 }
 
 .event-card h2 {
-  margin: 0 0 17px;
+  margin: 0 0 12px;
   font-size: var(--type-sm);
   font-weight: 900;
   line-height: 1;
@@ -339,10 +361,34 @@ input:focus-visible {
 }
 
 .event-card p {
-  margin: 0;
+  margin: 0 0 14px;
   font-size: var(--type-xs);
   line-height: 1.35;
   text-align: center;
+}
+
+.register-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 120px;
+  height: 34px;
+  margin: 0 auto;
+  padding: 0 18px;
+  color: #ffffff;
+  background: #202020;
+  border-radius: 999px;
+  font-size: var(--type-xs);
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.register-button:hover,
+.register-button:focus-visible {
+  background: var(--red);
+  transform: translateY(-2px);
 }
 
 .round-arrow {
@@ -361,6 +407,16 @@ input:focus-visible {
   line-height: 1;
   cursor: pointer;
   transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.round-arrow img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.round-arrow-left img {
+  transform: rotate(180deg);
 }
 
 .round-arrow:hover {
@@ -434,10 +490,25 @@ input:focus-visible {
   padding: 90px 60px 120px;
 }
 
-.mission-image {
+.mission-slider {
   width: 530px;
   height: 352px;
+  overflow: hidden;
   background: #1f1f1f;
+}
+
+.mission-slider-track {
+  display: flex;
+  width: 300%;
+  height: 100%;
+  transform: translateX(0);
+  transition: transform 700ms ease;
+}
+
+.mission-image {
+  flex: 0 0 530px;
+  width: 530px;
+  height: 352px;
   object-fit: cover;
 }
 
@@ -867,6 +938,23 @@ input:focus-visible {
 .cart-list {
   display: grid;
   gap: 36px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 14px;
+}
+
+.cart-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-list::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 999px;
+}
+
+.cart-list::-webkit-scrollbar-thumb {
+  background: #202020;
+  border-radius: 999px;
 }
 
 .empty-cart {
@@ -1182,6 +1270,21 @@ input:focus-visible {
     aspect-ratio: 530 / 352;
   }
 
+  .mission-slider {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 530 / 352;
+  }
+
+  .mission-slider-track {
+    height: 100%;
+  }
+
+  .mission-slider .mission-image {
+    flex-basis: 100%;
+    height: 100%;
+  }
+
   .site-footer {
     grid-template-columns: 1fr;
     height: auto;
@@ -1300,6 +1403,10 @@ input:focus-visible {
   .event-card,
   .product-card {
     width: min(320px, 100%);
+  }
+
+  .register-button {
+    width: 100%;
   }
 
   .newsletter-row {

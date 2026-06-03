@@ -85,22 +85,22 @@ const PRODUCTS = {
     sizes: ["28", "30", "32", "34", "36"]
   },
   "butterco-rula-valge-2022": {
-    title: "BUTTER'CO rula 2022",
+    title: "BUTTER'CO rula Valge 2022",
     price: 119.9,
     image: "../assets/white-bg/rulkatoode1.png",
     description: "Valge graafikaga complete-rula alustavale ja edasijõudnud sõitjale. Stabiilne laud sobib linnas kruiisimiseks ja esimesteks trikkideks.",
     productCode: "BTR-SKB-2201",
     styleCode: "BC22-WHT-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-graffiti-2026": {
-    title: "BUTTER'CO rula 2026",
+    title: "BUTTER'CO rula Graffiti 2026",
     price: 129.9,
     image: "../assets/white-bg/rula2.png",
     description: "Graffiti-stiilis rula on kiire, kerge ja valmis tänavasõiduks. Hea valik sõitjale, kes tahab silmapaistvat disaini.",
     productCode: "BTR-SKB-2602",
     styleCode: "BC26-GRF-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-must-2026": {
     title: "BUTTER'CO rula Must 2026",
@@ -109,7 +109,7 @@ const PRODUCTS = {
     description: "Must BUTTER'CO complete-rula tugeva graafika ja kindla tunnetusega. Sobib parki, tänavale ja igapäevaseks sõiduks.",
     productCode: "BTR-SKB-2603",
     styleCode: "BC26-BLK-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-classic-2022": {
     title: "BUTTER'CO rula Classic 2022",
@@ -118,7 +118,7 @@ const PRODUCTS = {
     description: "Klassikaline complete-rula neile, kes tahavad lihtsat ja töökindlat lauda. Puhas disain ja hea kontroll igapäevaseks sõiduks.",
     productCode: "BTR-SKB-2204",
     styleCode: "BC22-CLS-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-street-2026": {
     title: "BUTTER'CO rula Street 2026",
@@ -127,7 +127,7 @@ const PRODUCTS = {
     description: "Street-seeria laud on tehtud kiireteks liinideks ja tehnilisteks trikkideks. Vastupidav komplekt annab kindla tunnetuse jala all.",
     productCode: "BTR-SKB-2605",
     styleCode: "BC26-ST-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-night-2026": {
     title: "BUTTER'CO rula Night 2026",
@@ -136,7 +136,7 @@ const PRODUCTS = {
     description: "Tume ja terav rula neile, kes eelistavad minimalistlikku välimust. Laud on valmis nii pargiks kui tänavaks.",
     productCode: "BTR-SKB-2606",
     styleCode: "BC26-NGT-CMP",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-mini-2022": {
     title: "BUTTER'CO rula Mini 2022",
@@ -145,7 +145,7 @@ const PRODUCTS = {
     description: "Väiksem ja kergem complete-rula nooremale sõitjale või neile, kes tahavad lihtsamat kontrolli.",
     productCode: "BTR-SKB-2207",
     styleCode: "BC22-MINI",
-    sizes: ["7.5", "7.75", "8.0"]
+    sizes: ["7.5 tolli", "7.75 tolli", "8.0 tolli"]
   },
   "butterco-rula-rail-2026": {
     title: "BUTTER'CO rula Rail 2026",
@@ -154,7 +154,7 @@ const PRODUCTS = {
     description: "Rail-seeria on tehtud sõitjale, kes tahab proovida rohkem grind'e ja slide'e. Tugev komplekt peab paremini vastu.",
     productCode: "BTR-SKB-2608",
     styleCode: "BC26-RAIL",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   },
   "butterco-rula-logo-2026": {
     title: "BUTTER'CO rula Logo 2026",
@@ -163,7 +163,7 @@ const PRODUCTS = {
     description: "Logo-graafikaga rula ühendab lihtsa välimuse ja tugeva sõidutunde. Sobib hästi igapäevaseks kasutuseks.",
     productCode: "BTR-SKB-2609",
     styleCode: "BC26-LOGO",
-    sizes: ["7.75", "8.0", "8.25"]
+    sizes: ["7.75 tolli", "8.0 tolli", "8.25 tolli"]
   }
 };
 
@@ -189,6 +189,110 @@ heroPanels.forEach((panel, index) => {
 });
 
 setActiveHeroDot(0);
+
+function setupShopSlideshow() {
+  const slider = document.querySelector("[data-shop-slideshow]");
+  const track = document.querySelector(".mission-slider-track");
+  if (!slider || !track) return;
+
+  let currentIndex = 0;
+  const slideCount = track.children.length;
+
+  window.setInterval(() => {
+    currentIndex = (currentIndex + 1) % slideCount;
+    track.style.transform = `translateX(-${currentIndex * slider.clientWidth}px)`;
+  }, 7000);
+}
+
+function setupEventsSlider() {
+  const sliderTrack = document.querySelector("[data-events-slider]");
+  const previousButton = document.querySelector(".round-arrow-left");
+  const nextButton = document.querySelector(".round-arrow-right");
+
+  if (!sliderTrack || !previousButton || !nextButton) return;
+
+  const originalSlides = Array.from(sliderTrack.children);
+  const eventSlides = [...originalSlides, ...originalSlides.map((slide) => slide.cloneNode(true))];
+
+  function getEventTitle(slide) {
+    return slide.querySelector("h2")?.textContent.trim() || "";
+  }
+
+  function hasMatchingNeighbors(slides) {
+    return slides.some((slide, index) => {
+      const nextSlide = slides[(index + 1) % slides.length];
+      return getEventTitle(slide) === getEventTitle(nextSlide);
+    });
+  }
+
+  function shuffleEvents(slides) {
+    for (let attempt = 0; attempt < 30; attempt += 1) {
+      const shuffled = [...slides].sort(() => Math.random() - 0.5);
+      if (!hasMatchingNeighbors(shuffled)) return shuffled;
+    }
+
+    return [
+      slides[0],
+      slides[1],
+      slides[2],
+      slides[0].cloneNode(true),
+      slides[1].cloneNode(true),
+      slides[2].cloneNode(true)
+    ];
+  }
+
+  const randomizedSlides = shuffleEvents(eventSlides);
+  const visibleSlides = 3;
+  const beforeClones = randomizedSlides.slice(-visibleSlides).map((slide) => slide.cloneNode(true));
+  const afterClones = randomizedSlides.slice(0, visibleSlides).map((slide) => slide.cloneNode(true));
+
+  sliderTrack.replaceChildren(...beforeClones, ...randomizedSlides, ...afterClones);
+
+  let currentIndex = visibleSlides;
+  let isMoving = false;
+
+  function getStepSize() {
+    const slideWidth = sliderTrack.children[0].getBoundingClientRect().width;
+    const gap = Number.parseFloat(window.getComputedStyle(sliderTrack).columnGap) || 0;
+    return slideWidth + gap;
+  }
+
+  function updateSlider(animate = true) {
+    sliderTrack.style.transition = animate ? "transform 450ms ease" : "none";
+    sliderTrack.style.transform = `translateX(-${currentIndex * getStepSize()}px)`;
+  }
+
+  previousButton.addEventListener("click", () => {
+    if (isMoving) return;
+    isMoving = true;
+    currentIndex -= 1;
+    updateSlider();
+  });
+
+  nextButton.addEventListener("click", () => {
+    if (isMoving) return;
+    isMoving = true;
+    currentIndex += 1;
+    updateSlider();
+  });
+
+  sliderTrack.addEventListener("transitionend", () => {
+    if (currentIndex < visibleSlides) {
+      currentIndex += randomizedSlides.length;
+      updateSlider(false);
+    }
+
+    if (currentIndex >= randomizedSlides.length + visibleSlides) {
+      currentIndex -= randomizedSlides.length;
+      updateSlider(false);
+    }
+
+    isMoving = false;
+  });
+
+  window.addEventListener("resize", updateSlider);
+  updateSlider(false);
+}
 
 function getCart() {
   try {
@@ -378,3 +482,5 @@ function setupCartPage() {
 
 setupDetailCartButton();
 setupCartPage();
+setupShopSlideshow();
+setupEventsSlider();
