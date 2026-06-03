@@ -56,17 +56,22 @@ input:focus-visible {
   height: 80px;
   background: #ffffff;
   border-bottom: 1px solid #111111;
+  transition: transform 240ms ease;
+}
+
+.site-header.header-hidden {
+  transform: translateY(-100%);
 }
 
 .brand {
   position: absolute;
-  top: 8px;
+  top: 7px;
   left: 0;
   right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0;
   overflow: visible;
   align-self: start;
   justify-self: center;
@@ -83,14 +88,19 @@ input:focus-visible {
 
 .brand img {
   position: static;
-  width: 113px;
+  width: 119px;
   max-width: none;
-  height: 89px;
+  height: 92px;
   object-fit: contain;
   transform: none;
 }
 
 .brand-word {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 139px;
+  height: 64px;
   color: #000000;
   font-size: 46px;
   font-weight: 900;
@@ -151,7 +161,7 @@ input:focus-visible {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   max-width: var(--page-width);
-  height: 645px;
+  height: 1000px;
   margin: 0 auto;
   overflow: hidden;
   background: #e8e8e8;
@@ -164,12 +174,19 @@ input:focus-visible {
   background:
     linear-gradient(135deg, rgba(20, 20, 20, 0.1), rgba(20, 20, 20, 0.45)),
     #a9a9a9;
+  cursor: pointer;
 }
 
 .hero-panel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 450ms ease, filter 450ms ease;
+}
+
+.hero-panel:hover img {
+  filter: brightness(1.08) contrast(1.04);
+  transform: scale(1.06);
 }
 
 .hero-left img {
@@ -190,6 +207,11 @@ input:focus-visible {
   content: "";
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.18));
   pointer-events: none;
+  transition: background 450ms ease;
+}
+
+.hero-panel:hover::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.08));
 }
 
 .hero-year {
@@ -198,8 +220,16 @@ input:focus-visible {
   bottom: 58px;
   z-index: 1;
   color: #ffffff;
+  opacity: 0;
   text-align: right;
   text-transform: uppercase;
+  transform: translateY(12px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.hero-panel:hover .hero-year {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero-year span {
@@ -390,9 +420,9 @@ input:focus-visible {
   justify-content: center;
   gap: 139px;
   max-width: var(--page-width);
-  min-height: 560px;
+  min-height: 660px;
   margin: 0 auto;
-  padding: 36px 60px 80px;
+  padding: 90px 60px 120px;
 }
 
 .mission-image {
@@ -415,15 +445,15 @@ input:focus-visible {
 
 .mission-text h3 {
   margin: 0 0 11px;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 900;
 }
 
 .mission-text p {
   max-width: 470px;
   margin: 0 0 27px;
-  font-size: 10px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.55;
 }
 
 .site-footer {
