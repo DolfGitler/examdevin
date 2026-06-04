@@ -6,10 +6,11 @@ const { URL } = require("url");
 
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = path.join(__dirname, "..");
+const ASSETS_DIR = path.join(ROOT_DIR, "..", "assets");
 const DATA_DIR = path.join(__dirname, "data");
 const DB_FILE = path.join(DATA_DIR, "db.json");
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "raKXFjt2iZGC0NsV61UeIk4z";
 const sessions = new Set();
 
 const seedProducts = [
@@ -242,9 +243,11 @@ function requireAdmin(req, res) {
 }
 
 async function serveStatic(req, res, pathname) {
-  const filePath = path.normalize(path.join(ROOT_DIR, pathname === "/" ? "index.html" : pathname));
+  const baseDir = pathname.startsWith("/assets/") ? ASSETS_DIR : ROOT_DIR;
+  const relativePath = pathname.startsWith("/assets/") ? pathname.replace(/^\/assets\//, "") : (pathname === "/" ? "index.html" : pathname);
+  const filePath = path.normalize(path.join(baseDir, relativePath));
 
-  if (!filePath.startsWith(ROOT_DIR)) {
+  if (!filePath.startsWith(baseDir)) {
     sendHtml(res, "Keelatud", 403);
     return;
   }

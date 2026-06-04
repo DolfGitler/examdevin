@@ -1,9 +1,10 @@
 {
-  "name": "grind-json-backend",
+  "name": "grind-custom-backend",
   "version": "1.0.0",
   "private": true,
   "type": "commonjs",
   "scripts": {
+    "check": "node --check server.js",
     "start": "node server.js"
   }
 }

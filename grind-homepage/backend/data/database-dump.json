@@ -1,0 +1,69 @@
+{
+    "meta":  {
+                 "name":  "Grind JSON database dump",
+                 "description":  "Initial database dump for the custom backend."
+             },
+    "admins":  [
+                   {
+                       "username":  "admin",
+                       "passwordHash":  "73c132d78fd01a640bc810d9816f90b053a487858a87f28d0198a2601222c24d"
+                   }
+               ],
+    "products":  [
+                     {
+                         "id":  "grind-pusa-2026",
+                         "name":  "GRIND pusa 2026",
+                         "description":  "Soe ja vastupidav pusa, mis sobib nii rulaparki kui igapäevaseks kandmiseks.",
+                         "image":  "../assets/transparent-bg/pusa 1.png",
+                         "price":  79.9,
+                         "category":  "riietus",
+                         "sizes":  [
+                                       "XS",
+                                       "S",
+                                       "M",
+                                       "L",
+                                       "XL"
+                                   ],
+                         "brand":  "GRIND",
+                         "productCode":  "GRD-PUSA-2601",
+                         "styleCode":  "GP26-BLK-A"
+                     },
+                     {
+                         "id":  "starshoe-tossud-2026",
+                         "name":  "STARSHOE tossud 2026",
+                         "description":  "Tugeva tallaga skate-tossud igapäevaseks sõiduks ja tänavastiiliks.",
+                         "image":  "../assets/transparent-bg/tossud1.png",
+                         "price":  129.9,
+                         "category":  "tossud",
+                         "sizes":  [
+                                       "EU 7.5",
+                                       "EU 8",
+                                       "EU 9",
+                                       "EU 9.5",
+                                       "EU 11"
+                                   ],
+                         "brand":  "STARSHOE",
+                         "productCode":  "STR-SHOE-2605",
+                         "styleCode":  "SS26-BLK-WHT"
+                     },
+                     {
+                         "id":  "butterco-rula-must-2026",
+                         "name":  "BUTTER\u0027CO rula Must 2026",
+                         "description":  "Must complete-rula tugeva graafika ja kindla sõidutundega.",
+                         "image":  "../assets/transparent-bg/rula4.png",
+                         "price":  134.9,
+                         "category":  "rulad",
+                         "sizes":  [
+                                       "7.75 tolli",
+                                       "8.0 tolli",
+                                       "8.25 tolli"
+                                   ],
+                         "brand":  "BUTTER\u0027CO",
+                         "productCode":  "BTR-SKB-2603",
+                         "styleCode":  "BC26-BLK-CMP"
+                     }
+                 ],
+    "contacts":  [
+
+                 ]
+}

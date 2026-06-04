@@ -1,0 +1,29 @@
+{
+  "database": "backend/data/db.json",
+  "tables": {
+    "admins": {
+      "username": "string, required, unique",
+      "passwordHash": "string, sha256 hash"
+    },
+    "products": {
+      "id": "string, required, unique slug",
+      "name": "string, required",
+      "description": "string, required",
+      "image": "string, required, relative image path",
+      "price": "number, required",
+      "category": "string, required",
+      "sizes": "array of strings, required",
+      "brand": "string, required",
+      "productCode": "string, required",
+      "styleCode": "string, required"
+    },
+    "contacts": {
+      "id": "string, required, uuid",
+      "name": "string, required from contact form",
+      "email": "string, required from contact form",
+      "phone": "string",
+      "message": "string, required from contact form",
+      "createdAt": "string, ISO timestamp"
+    }
+  }
+}
