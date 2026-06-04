@@ -1,104 +1,102 @@
 {
-    "meta":  {
-                 "name":  "Grind JSON database",
-                 "createdAt":  "2026-06-04T00:58:00.633Z",
-                 "updatedAt":  "2026-06-04T00:58:00.634Z"
-             },
-    "admins":  [
-                   {
-                       "username":  "admin",
-                       "passwordHash":  "73c132d78fd01a640bc810d9816f90b053a487858a87f28d0198a2601222c24d"
-                   }
-               ],
-    "products":  [
-                     {
-                         "id":  "grind-pusa-2026",
-                         "name":  "GRIND pusa 2026",
-                         "description":  "Soe ja vastupidav pusa, mis sobib nii rulaparki kui igapäevaseks kandmiseks.",
-                         "image":  "../assets/transparent-bg/pusa 1.png",
-                         "price":  79.9,
-                         "category":  "riietus",
-                         "sizes":  [
-                                       "XS",
-                                       "S",
-                                       "M",
-                                       "L",
-                                       "XL"
-                                   ],
-                         "brand":  "GRIND",
-                         "productCode":  "GRD-PUSA-2601",
-                         "styleCode":  "GP26-BLK-A"
-                     },
-                     {
-                         "id":  "butterco-mustad-teksad-2026",
-                         "name":  "BUTTER\u0027CO teksad 2026",
-                         "description":  "Laiema lõikega mustad teksad, mis annavad sõitmiseks ruumi ja hoiavad tänavastiili puhtana.",
-                         "image":  "../assets/transparent-bg/teksad1.png",
-                         "price":  89.9,
-                         "category":  "riietus",
-                         "sizes":  [
-                                       "28",
-                                       "30",
-                                       "32",
-                                       "34",
-                                       "36"
-                                   ],
-                         "brand":  "BUTTER\u0027CO",
-                         "productCode":  "BTR-DNM-2602",
-                         "styleCode":  "BC26-BLK-DNM"
-                     },
-                     {
-                         "id":  "starshoe-tossud-2026",
-                         "name":  "STARSHOE tossud 2026",
-                         "description":  "Tugeva tallaga skate-tossud igapäevaseks sõiduks ja tänavastiiliks.",
-                         "image":  "../assets/transparent-bg/tossud1.png",
-                         "price":  129.9,
-                         "category":  "tossud",
-                         "sizes":  [
-                                       "EU 7.5",
-                                       "EU 8",
-                                       "EU 9",
-                                       "EU 9.5",
-                                       "EU 11"
-                                   ],
-                         "brand":  "STARSHOE",
-                         "productCode":  "STR-SHOE-2605",
-                         "styleCode":  "SS26-BLK-WHT"
-                     },
-                     {
-                         "id":  "butterco-rula-valge-2022",
-                         "name":  "BUTTER\u0027CO rula Valge 2022",
-                         "description":  "Valge graafikaga complete-rula alustavale ja edasijõudnud sõitjale.",
-                         "image":  "../assets/transparent-bg/rulkatoode1.png",
-                         "price":  119.9,
-                         "category":  "rulad",
-                         "sizes":  [
-                                       "7.75 tolli",
-                                       "8.0 tolli",
-                                       "8.25 tolli"
-                                   ],
-                         "brand":  "BUTTER\u0027CO",
-                         "productCode":  "BTR-SKB-2201",
-                         "styleCode":  "BC22-WHT-CMP"
-                     },
-                     {
-                         "id":  "butterco-rula-must-2026",
-                         "name":  "BUTTER\u0027CO rula Must 2026",
-                         "description":  "Must complete-rula tugeva graafika ja kindla sõidutundega.",
-                         "image":  "../assets/transparent-bg/rula4.png",
-                         "price":  134.9,
-                         "category":  "rulad",
-                         "sizes":  [
-                                       "7.75 tolli",
-                                       "8.0 tolli",
-                                       "8.25 tolli"
-                                   ],
-                         "brand":  "BUTTER\u0027CO",
-                         "productCode":  "BTR-SKB-2603",
-                         "styleCode":  "BC26-BLK-CMP"
-                     }
-                 ],
-    "contacts":  [
-
-                 ]
+  "meta": {
+    "name": "Grind JSON database",
+    "createdAt": "2026-06-04T14:29:25.733Z",
+    "updatedAt": "2026-06-04T14:34:18.433Z"
+  },
+  "admins": [
+    {
+      "username": "admin",
+      "passwordHash": "scrypt$140e5c0585e9eab676a560ebc21ad874$fe005dca8b28dc226a3d65ecaa623eead5cefd47ab6ca3a1d65db7035c8133f54f9eadd880a9b9d61679c87c882eb418891a6cd32370403baa3d4f791787e2ae"
+    }
+  ],
+  "products": [
+    {
+      "id": "grind-pusa-2026",
+      "name": "GRIND pusa 2026",
+      "description": "Soe ja vastupidav pusa, mis sobib nii rulaparki kui igapäevaseks kandmiseks.",
+      "image": "../assets/transparent-bg/pusa 1.png",
+      "price": 79.9,
+      "category": "riietus",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "brand": "GRIND",
+      "productCode": "GRD-PUSA-2601",
+      "styleCode": "GP26-BLK-A"
+    },
+    {
+      "id": "butterco-mustad-teksad-2026",
+      "name": "BUTTER'CO teksad 2026",
+      "description": "Laiema lõikega mustad teksad, mis annavad sõitmiseks ruumi ja hoiavad tänavastiili puhtana.",
+      "image": "../assets/transparent-bg/teksad1.png",
+      "price": 89.9,
+      "category": "riietus",
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "brand": "BUTTER'CO",
+      "productCode": "BTR-DNM-2602",
+      "styleCode": "BC26-BLK-DNM"
+    },
+    {
+      "id": "starshoe-tossud-2026",
+      "name": "STARSHOE tossud 2026",
+      "description": "Tugeva tallaga skate-tossud igapäevaseks sõiduks ja tänavastiiliks.",
+      "image": "../assets/transparent-bg/tossud1.png",
+      "price": 129.9,
+      "category": "tossud",
+      "sizes": [
+        "EU 7.5",
+        "EU 8",
+        "EU 9",
+        "EU 9.5",
+        "EU 11"
+      ],
+      "brand": "STARSHOE",
+      "productCode": "STR-SHOE-2605",
+      "styleCode": "SS26-BLK-WHT"
+    },
+    {
+      "id": "butterco-rula-valge-2022",
+      "name": "BUTTER'CO rula Valge 2022",
+      "description": "Valge graafikaga complete-rula alustavale ja edasijõudnud sõitjale.",
+      "image": "../assets/transparent-bg/rulkatoode1.png",
+      "price": 119.9,
+      "category": "rulad",
+      "sizes": [
+        "7.75 tolli",
+        "8.0 tolli",
+        "8.25 tolli"
+      ],
+      "brand": "BUTTER'CO",
+      "productCode": "BTR-SKB-2201",
+      "styleCode": "BC22-WHT-CMP"
+    },
+    {
+      "id": "butterco-rula-must-2026",
+      "name": "BUTTER'CO rula Must 2026",
+      "description": "Must complete-rula tugeva graafika ja kindla sõidutundega.",
+      "image": "../assets/transparent-bg/rula4.png",
+      "price": 134.9,
+      "category": "rulad",
+      "sizes": [
+        "7.75 tolli",
+        "8.0 tolli",
+        "8.25 tolli"
+      ],
+      "brand": "BUTTER'CO",
+      "productCode": "BTR-SKB-2603",
+      "styleCode": "BC26-BLK-CMP"
+    }
+  ],
+  "contacts": []
 }

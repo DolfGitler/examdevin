@@ -1,17 +1,32 @@
 const crypto = require("crypto");
 const fs = require("fs/promises");
+const fsSync = require("fs");
 const http = require("http");
 const path = require("path");
 const { URL } = require("url");
+
+loadEnvFile(path.join(__dirname, ".env"));
 
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = path.join(__dirname, "..");
 const ASSETS_DIR = path.join(ROOT_DIR, "..", "assets");
 const DATA_DIR = path.join(__dirname, "data");
 const DB_FILE = path.join(DATA_DIR, "db.json");
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "raKXFjt2iZGC0NsV61UeIk4z";
 const sessions = new Set();
+
+function loadEnvFile(filePath) {
+  if (!fsSync.existsSync(filePath)) return;
+
+  const content = fsSync.readFileSync(filePath, "utf8");
+  content.split(/\r?\n/).forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) return;
+    const [key, ...value] = trimmed.split("=");
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value.join("=").trim();
+    }
+  });
+}
 
 const seedProducts = [
   {
@@ -76,8 +91,36 @@ const seedProducts = [
   }
 ];
 
+function requireConfigValue(name) {
+  if (!process.env[name]) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return process.env[name];
+}
+
 function hashPassword(password) {
-  return crypto.createHash("sha256").update(password).digest("hex");
+  const salt = crypto.randomBytes(16).toString("hex");
+  const key = crypto.scryptSync(password, salt, 64).toString("hex");
+  return `scrypt$${salt}$${key}`;
+}
+
+function verifyPassword(password, storedHash) {
+  const [algorithm, salt, key] = String(storedHash).split("$");
+  if (algorithm !== "scrypt" || !salt || !key) return false;
+
+  const candidate = crypto.scryptSync(password, salt, 64);
+  const expected = Buffer.from(key, "hex");
+  return expected.length === candidate.length && crypto.timingSafeEqual(expected, candidate);
+}
+
+function createSessionToken() {
+  const raw = crypto.randomBytes(24).toString("hex");
+  const signature = crypto
+    .createHmac("sha256", requireConfigValue("SESSION_SECRET"))
+    .update(raw)
+    .digest("hex");
+  return `${raw}.${signature}`;
 }
 
 function escapeHtml(value = "") {
@@ -98,6 +141,9 @@ function slugify(value) {
 
 async function ensureDatabase() {
   await fs.mkdir(DATA_DIR, { recursive: true });
+  requireConfigValue("SESSION_SECRET");
+  const adminUsername = requireConfigValue("ADMIN_USERNAME");
+  const adminPassword = requireConfigValue("ADMIN_PASSWORD");
 
   try {
     await fs.access(DB_FILE);
@@ -111,13 +157,32 @@ async function ensureDatabase() {
       },
       admins: [
         {
-          username: ADMIN_USERNAME,
-          passwordHash: hashPassword(ADMIN_PASSWORD)
+          username: adminUsername,
+          passwordHash: hashPassword(adminPassword)
         }
       ],
       products: seedProducts,
       contacts: []
     });
+    return;
+  }
+
+  const db = JSON.parse(await fs.readFile(DB_FILE, "utf8"));
+  db.admins = Array.isArray(db.admins) ? db.admins : [];
+  const admin = db.admins.find((user) => user.username === adminUsername);
+
+  if (!admin) {
+    db.admins.push({
+      username: adminUsername,
+      passwordHash: hashPassword(adminPassword)
+    });
+    await writeDb(db);
+    return;
+  }
+
+  if (!verifyPassword(adminPassword, admin.passwordHash)) {
+    admin.passwordHash = hashPassword(adminPassword);
+    await writeDb(db);
   }
 }
 
@@ -142,6 +207,36 @@ function parseCookies(req) {
         return [key, decodeURIComponent(value.join("="))];
       })
   );
+}
+
+function createCookie(name, value, options = {}) {
+  const parts = [`${name}=${encodeURIComponent(value)}`, "Path=/", "SameSite=Lax"];
+  if (options.httpOnly) parts.push("HttpOnly");
+  if (options.maxAge !== undefined) parts.push(`Max-Age=${options.maxAge}`);
+  return parts.join("; ");
+}
+
+function getCsrfToken(req) {
+  return parseCookies(req).csrf_token || crypto.randomBytes(24).toString("hex");
+}
+
+function csrfInput(token) {
+  return `<input type="hidden" name="_csrf" value="${escapeHtml(token)}">`;
+}
+
+function csrfHeaders(req) {
+  const token = getCsrfToken(req);
+  return {
+    token,
+    headers: {
+      "Set-Cookie": createCookie("csrf_token", token)
+    }
+  };
+}
+
+function verifyCsrf(req, form) {
+  const token = parseCookies(req).csrf_token;
+  return Boolean(token && form._csrf && token === form._csrf);
 }
 
 function isLoggedIn(req) {
@@ -174,6 +269,10 @@ function readBody(req) {
 
     req.on("data", (chunk) => {
       body += chunk;
+      if (body.length > 1_000_000) {
+        req.destroy();
+        reject(new Error("Request body too large"));
+      }
     });
 
     req.on("end", () => resolve(body));
@@ -206,8 +305,9 @@ function pageLayout(title, content) {
 </html>`;
 }
 
-function productForm(product = {}) {
+function productForm(product = {}, csrfToken = "") {
   return `<form method="post">
+    ${csrfInput(csrfToken)}
     <p><label>Nimi<br><input name="name" value="${escapeHtml(product.name)}" required></label></p>
     <p><label>Kirjeldus<br><textarea name="description" rows="5" required>${escapeHtml(product.description)}</textarea></label></p>
     <p><label>Pildi tee<br><input name="image" value="${escapeHtml(product.image || "../assets/transparent-bg/tossud1.png")}" required></label></p>
@@ -234,6 +334,27 @@ function productFromForm(form, existingId) {
     productCode: form.productCode.trim(),
     styleCode: form.styleCode.trim()
   };
+}
+
+function validateProductForm(form) {
+  const required = ["name", "description", "image", "price", "category", "sizes", "brand", "productCode", "styleCode"];
+  const missing = required.filter((field) => !String(form[field] || "").trim());
+  const price = Number(form.price);
+
+  if (missing.length) return `Puuduvad väljad: ${missing.join(", ")}`;
+  if (!Number.isFinite(price) || price <= 0) return "Hind peab olema positiivne number.";
+  if (!form.sizes.split(",").map((size) => size.trim()).filter(Boolean).length) return "Lisa vähemalt üks suurus.";
+  if (!/^[\w./ -]+$/.test(form.image)) return "Pildi tee sisaldab lubamatuid märke.";
+
+  return "";
+}
+
+function validateContactForm(form) {
+  if (!String(form.name || "").trim()) return "Nimi on kohustuslik.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(form.email || ""))) return "E-mail ei ole korrektne.";
+  if (!String(form.message || "").trim()) return "Sõnum on kohustuslik.";
+  if (String(form.phone || "").length > 40) return "Telefoninumber on liiga pikk.";
+  return "";
 }
 
 function requireAdmin(req, res) {
@@ -265,6 +386,16 @@ async function serveStatic(req, res, pathname) {
       ".jpeg": "image/jpeg",
       ".jfif": "image/jpeg"
     }[ext] || "application/octet-stream";
+    if (pathname === "/kontaktivorm.html") {
+      const csrf = csrfHeaders(req);
+      const html = file.toString("utf8").replace(
+        '<form class="contact-form" action="/contact" method="post">',
+        `<form class="contact-form" action="/contact" method="post">${csrfInput(csrf.token)}`
+      );
+      sendHtml(res, html, 200, csrf.headers);
+      return;
+    }
+
     res.writeHead(200, { "Content-Type": type });
     res.end(file);
   } catch {
@@ -276,25 +407,28 @@ async function handleAdmin(req, res, url) {
   const db = await readDb();
 
   if (url.pathname === "/admin/login" && req.method === "GET") {
+    const csrf = csrfHeaders(req);
     sendHtml(res, pageLayout("Admin login", `<h1>Admin sisselogimine</h1>
       <form method="post">
+        ${csrfInput(csrf.token)}
         <p><label>Kasutajanimi<br><input name="username" required></label></p>
         <p><label>Parool<br><input name="password" type="password" required></label></p>
         <button type="submit">Logi sisse</button>
-      </form>`));
+      </form>`), 200, csrf.headers);
     return;
   }
 
   if (url.pathname === "/admin/login" && req.method === "POST") {
     const form = await readForm(req);
-    const admin = db.admins.find((user) => user.username === form.username && user.passwordHash === hashPassword(form.password));
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
+    const admin = db.admins.find((user) => user.username === form.username && verifyPassword(form.password || "", user.passwordHash));
 
     if (!admin) {
       sendHtml(res, pageLayout("Admin login", "<p>Vale kasutajanimi või parool.</p><p><a href=\"/admin/login\">Proovi uuesti</a></p>"), 401);
       return;
     }
 
-    const session = crypto.randomBytes(24).toString("hex");
+    const session = createSessionToken();
     sessions.add(session);
     res.writeHead(302, {
       Location: "/admin",
@@ -304,7 +438,9 @@ async function handleAdmin(req, res, url) {
     return;
   }
 
-  if (url.pathname === "/admin/logout") {
+  if (url.pathname === "/admin/logout" && req.method === "POST") {
+    const form = await readForm(req);
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     sessions.delete(parseCookies(req).grind_session);
     res.writeHead(302, {
       Location: "/admin/login",
@@ -318,10 +454,12 @@ async function handleAdmin(req, res, url) {
 
   if (url.pathname === "/admin" || url.pathname === "/admin/products") {
     if (!requireAdmin(req, res)) return;
+    const csrf = csrfHeaders(req);
     const rows = db.products.map((product) => `<li>
       ${escapeHtml(product.name)} - ${product.price}€
       <a href="/admin/products/${product.id}/edit">Muuda</a>
       <form method="post" action="/admin/products/${product.id}/delete" style="display:inline">
+        ${csrfInput(csrf.token)}
         <button type="submit">Kustuta</button>
       </form>
     </li>`).join("");
@@ -330,21 +468,27 @@ async function handleAdmin(req, res, url) {
       ${escapeHtml(message.message)}
     </li>`).join("");
     sendHtml(res, pageLayout("Admin", `<h1>Admin</h1>
-      <p><a href="/admin/products/new">Lisa uus toode</a> | <a href="/admin/logout">Logi välja</a></p>
+      <p><a href="/admin/products/new">Lisa uus toode</a></p>
+      <form method="post" action="/admin/logout">${csrfInput(csrf.token)}<button type="submit">Logi välja</button></form>
       <h2>Tooted</h2><ul>${rows}</ul>
-      <h2>Kontaktivormi sõnumid</h2><ul>${messages || "<li>Sõnumeid pole.</li>"}</ul>`));
+      <h2>Kontaktivormi sõnumid</h2><ul>${messages || "<li>Sõnumeid pole.</li>"}</ul>`), 200, csrf.headers);
     return;
   }
 
   if (url.pathname === "/admin/products/new" && req.method === "GET") {
     if (!requireAdmin(req, res)) return;
-    sendHtml(res, pageLayout("Lisa toode", `<h1>Lisa toode</h1>${productForm()}`));
+    const csrf = csrfHeaders(req);
+    sendHtml(res, pageLayout("Lisa toode", `<h1>Lisa toode</h1>${productForm({}, csrf.token)}`), 200, csrf.headers);
     return;
   }
 
   if (url.pathname === "/admin/products/new" && req.method === "POST") {
     if (!requireAdmin(req, res)) return;
-    db.products.push(productFromForm(await readForm(req)));
+    const form = await readForm(req);
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
+    const error = validateProductForm(form);
+    if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/admin/products/new">Tagasi</a></p>`), 400);
+    db.products.push(productFromForm(form));
     await writeDb(db);
     redirect(res, "/admin");
     return;
@@ -353,17 +497,22 @@ async function handleAdmin(req, res, url) {
   const editMatch = url.pathname.match(/^\/admin\/products\/([^/]+)\/edit$/);
   if (editMatch && req.method === "GET") {
     if (!requireAdmin(req, res)) return;
+    const csrf = csrfHeaders(req);
     const product = db.products.find((item) => item.id === editMatch[1]);
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
-    sendHtml(res, pageLayout("Muuda toodet", `<h1>Muuda toodet</h1>${productForm(product)}`));
+    sendHtml(res, pageLayout("Muuda toodet", `<h1>Muuda toodet</h1>${productForm(product, csrf.token)}`), 200, csrf.headers);
     return;
   }
 
   if (editMatch && req.method === "POST") {
     if (!requireAdmin(req, res)) return;
+    const form = await readForm(req);
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
+    const error = validateProductForm(form);
+    if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/admin/products/${editMatch[1]}/edit">Tagasi</a></p>`), 400);
     const index = db.products.findIndex((item) => item.id === editMatch[1]);
     if (index === -1) return sendHtml(res, "Toodet ei leitud", 404);
-    db.products[index] = productFromForm(await readForm(req), editMatch[1]);
+    db.products[index] = productFromForm(form, editMatch[1]);
     await writeDb(db);
     redirect(res, "/admin");
     return;
@@ -372,6 +521,8 @@ async function handleAdmin(req, res, url) {
   const deleteMatch = url.pathname.match(/^\/admin\/products\/([^/]+)\/delete$/);
   if (deleteMatch && req.method === "POST") {
     if (!requireAdmin(req, res)) return;
+    const form = await readForm(req);
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     db.products = db.products.filter((item) => item.id !== deleteMatch[1]);
     await writeDb(db);
     redirect(res, "/admin");
@@ -416,13 +567,16 @@ async function handleBackendViews(req, res, url) {
 
 async function handleContact(req, res) {
   const form = await readForm(req);
+  if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
+  const error = validateContactForm(form);
+  if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/kontaktivorm.html">Tagasi</a></p>`), 400);
   const db = await readDb();
   db.contacts.push({
     id: crypto.randomUUID(),
-    name: form.name || "",
-    email: form.email || "",
-    phone: form.phone || "",
-    message: form.message || "",
+    name: form.name.trim(),
+    email: form.email.trim(),
+    phone: String(form.phone || "").trim(),
+    message: form.message.trim(),
     createdAt: new Date().toISOString()
   });
   await writeDb(db);

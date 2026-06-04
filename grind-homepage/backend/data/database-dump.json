@@ -6,7 +6,7 @@
     "admins":  [
                    {
                        "username":  "admin",
-                       "passwordHash":  "73c132d78fd01a640bc810d9816f90b053a487858a87f28d0198a2601222c24d"
+                       "passwordHash":  "generated-from-ADMIN_PASSWORD-in-.env"
                    }
                ],
     "products":  [

@@ -34,6 +34,21 @@ Mine backend kausta:
 cd C:\Users\rohtl\Desktop\examdevin\grind-homepage\backend
 ```
 
+Loo `.env` fail. Võid alustada failist `.env.example`:
+
+```bash
+copy .env.example .env
+```
+
+Muuda `.env` sees kindlasti parool ja sessiooni saladus juhuslikeks väärtusteks:
+
+```text
+PORT=3000
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=siia-pikk-juhuslik-parool
+SESSION_SECRET=siia-pikk-juhuslik-saladus
+```
+
 Käivita server:
 
 ```bash
@@ -57,8 +72,8 @@ http://localhost:3000/admin
 Vaikimisi sisselogimine:
 
 ```text
-Kasutajanimi: admin
-Parool: raKXFjt2iZGC0NsV61UeIk4z
+Kasutajanimi: see, mis on `.env` failis `ADMIN_USERNAME`
+Parool: see, mis on `.env` failis `ADMIN_PASSWORD`
 ```
 
 Adminis saab:
@@ -119,6 +134,19 @@ backend/data/database-dump.json
 ```
 
 Kui `db.json` puudub, loob server selle automaatselt.
+
+## Turvalisus
+
+Tehtud turvameetmed:
+
+- Admini parool ei ole avatekstina koodis. Parool tuleb `.env` failist.
+- Parool salvestatakse andmebaasi `scrypt` räsi ja soolaga.
+- `.env` on `.gitignore` failis, et saladused ei läheks Giti.
+- Kõigil muutvatel vormidel on CSRF-kaitse: login, logout, toote lisamine, muutmine, kustutamine ja kontaktivorm.
+- Kontaktivormil ja admini tootevormidel on serveripoolne sisendi valideerimine.
+- Päringu keha suurus on piiratud, et vältida liiga suuri vormipäringuid.
+- HTML väljundis kasutatakse escape'imist, et kasutaja sisend ei muutuks HTML/JS koodiks.
+- SQL-süsti vastu eraldi SQL päringuid ei ole, sest projekt kasutab JSON-faili, mitte SQL-andmebaasi. JSON-andmed loetakse ja kirjutatakse struktureeritult, mitte SQL-lausetega.
 
 ## Backend vaated
 

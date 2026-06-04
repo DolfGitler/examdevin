@@ -3,7 +3,7 @@
   "tables": {
     "admins": {
       "username": "string, required, unique",
-      "passwordHash": "string, sha256 hash"
+      "passwordHash": "string, salted scrypt hash"
     },
     "products": {
       "id": "string, required, unique slug",
