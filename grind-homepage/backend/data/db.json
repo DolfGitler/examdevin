@@ -2,7 +2,7 @@
   "meta": {
     "name": "Grind JSON database",
     "createdAt": "2026-06-04T14:29:25.733Z",
-    "updatedAt": "2026-06-04T14:34:18.433Z"
+    "updatedAt": "2026-06-04T14:43:48.724Z"
   },
   "admins": [
     {
@@ -98,5 +98,14 @@
       "styleCode": "BC26-BLK-CMP"
     }
   ],
-  "contacts": []
+  "contacts": [
+    {
+      "id": "8daef719-f5b7-44a1-99a2-0bd88e42305e",
+      "name": "devin",
+      "email": "rohtla@gmail.com",
+      "phone": "56680486",
+      "message": "kaspar on lahe",
+      "createdAt": "2026-06-04T14:43:48.724Z"
+    }
+  ]
 }
