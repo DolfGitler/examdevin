@@ -505,7 +505,6 @@ input:focus-visible {
 
 .mission-slider-track {
   display: flex;
-  width: 300%;
   height: 100%;
   transform: translateX(0);
   transition: transform 700ms ease;

@@ -196,12 +196,28 @@ function setupShopSlideshow() {
   if (!slider || !track) return;
 
   let currentIndex = 0;
-  const slideCount = track.children.length;
+  const originalSlides = Array.from(track.children);
+  const slideCount = originalSlides.length;
+  if (slideCount <= 1) return;
+
+  track.appendChild(originalSlides[0].cloneNode(true));
+
+  function slideTo(index, animate = true) {
+    track.style.transition = animate ? "transform 700ms ease" : "none";
+    track.style.transform = `translateX(-${index * slider.clientWidth}px)`;
+  }
 
   window.setInterval(() => {
-    currentIndex = (currentIndex + 1) % slideCount;
-    track.style.transform = `translateX(-${currentIndex * slider.clientWidth}px)`;
+    currentIndex += 1;
+    slideTo(currentIndex);
   }, 7000);
+
+  track.addEventListener("transitionend", () => {
+    if (currentIndex === slideCount) {
+      currentIndex = 0;
+      slideTo(currentIndex, false);
+    }
+  });
 }
 
 function setupEventsSlider() {
