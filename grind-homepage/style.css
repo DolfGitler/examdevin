@@ -170,7 +170,7 @@ input:focus-visible {
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
   max-width: var(--page-width);
-  height: 1000px;
+  height: 850px;
   margin: 0 auto;
   overflow: hidden;
   background: #e8e8e8;
@@ -410,12 +410,16 @@ input:focus-visible {
 }
 
 .round-arrow img {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
 .round-arrow-left img {
+  transform: none;
+}
+
+.round-arrow-right img {
   transform: rotate(180deg);
 }
 
@@ -566,9 +570,19 @@ input:focus-visible {
 
 .footer-contact strong,
 .newsletter label {
-  margin-bottom: 6px;
   font-size: var(--type-sm);
   font-weight: 900;
+}
+
+.newsletter {
+  display: grid;
+  gap: 12px;
+}
+
+.newsletter label {
+  display: block;
+  margin: 0;
+  line-height: 1;
 }
 
 .footer-contact span {
@@ -580,7 +594,7 @@ input:focus-visible {
   display: flex;
   align-items: center;
   width: 268px;
-  height: 27px;
+  height: 32px;
   padding: 0 4px 0 14px;
   overflow: hidden;
   background: #ffffff;
