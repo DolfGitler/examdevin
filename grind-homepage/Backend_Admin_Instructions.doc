@@ -1,0 +1,216 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Grind Backend Admin Instructions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      color: #111;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    h1, h2 {
+      color: #111;
+    }
+    code, pre {
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      padding: 8px;
+      display: block;
+      white-space: pre-wrap;
+    }
+    .warning {
+      background: #fff3cd;
+      border: 1px solid #ffe69c;
+      padding: 12px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grind Website Backend Admin Instructions</h1>
+
+  <p>This document explains exactly how to open the backend admin page for the Grind website.</p>
+
+  <div class="warning">
+    <strong>Important:</strong> Do not use VS Code "Go Live" for backend/admin/contact form features. Go Live uses port 5500 or 5501 and only works for static HTML. The backend must be started with <strong>npm start</strong> and opened on port <strong>3000</strong>.
+  </div>
+
+  <h2>1. Open The Correct Folder</h2>
+
+  <p>Your project is here:</p>
+
+  <pre>C:\Users\rohtl\Desktop\examdevin\grind-homepage</pre>
+
+  <p>The backend folder is here:</p>
+
+  <pre>C:\Users\rohtl\Desktop\examdevin\grind-homepage\backend</pre>
+
+  <h2>2. Open Terminal</h2>
+
+  <p>You can use Git Bash, PowerShell, VS Code terminal, or Cursor terminal.</p>
+
+  <p>Go to the backend folder:</p>
+
+  <pre>cd ~/desktop/examdevin/grind-homepage/backend</pre>
+
+  <p>If you use PowerShell, you can also write:</p>
+
+  <pre>cd C:\Users\rohtl\Desktop\examdevin\grind-homepage\backend</pre>
+
+  <h2>3. Check Node.js</h2>
+
+  <p>Write this command:</p>
+
+  <pre>node -v</pre>
+
+  <p>If it shows a version number, Node.js is installed.</p>
+
+  <p>If it says command not found, install Node.js from:</p>
+
+  <pre>https://nodejs.org/</pre>
+
+  <h2>4. Create The .env File</h2>
+
+  <p>The backend needs a file named <strong>.env</strong>. This file stores your admin username and password.</p>
+
+  <p>In the backend folder, write:</p>
+
+  <pre>cp .env.example .env</pre>
+
+  <p>If you use PowerShell, write:</p>
+
+  <pre>copy .env.example .env</pre>
+
+  <h2>5. Open The .env File</h2>
+
+  <p>Write this command:</p>
+
+  <pre>notepad .env</pre>
+
+  <p>Inside the file, write this:</p>
+
+  <pre>PORT=3000
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=kaspar69
+SESSION_SECRET=randomsecret123456789</pre>
+
+  <p>Save the file and close Notepad.</p>
+
+  <h2>6. Start The Backend</h2>
+
+  <p>Make sure you are still inside the backend folder:</p>
+
+  <pre>C:\Users\rohtl\Desktop\examdevin\grind-homepage\backend</pre>
+
+  <p>Then write:</p>
+
+  <pre>npm start</pre>
+
+  <p>If it works, you should see:</p>
+
+  <pre>Grind backend töötab: http://localhost:3000
+Admin: http://localhost:3000/admin</pre>
+
+  <p>Keep this terminal open. If you close it, the backend stops working.</p>
+
+  <h2>7. Open The Website</h2>
+
+  <p>Open your browser and go to:</p>
+
+  <pre>http://localhost:3000</pre>
+
+  <p>This opens the website through the backend.</p>
+
+  <h2>8. Open The Admin Page</h2>
+
+  <p>Open this link:</p>
+
+  <pre>http://localhost:3000/admin</pre>
+
+  <p>If it asks you to log in, use:</p>
+
+  <pre>Username: admin
+Password: kaspar69</pre>
+
+  <h2>9. What You Can Do In Admin</h2>
+
+  <p>Inside the admin page you can:</p>
+
+  <ul>
+    <li>Add products</li>
+    <li>Edit products</li>
+    <li>Delete products</li>
+    <li>Read contact form messages</li>
+  </ul>
+
+  <h2>10. Contact Form</h2>
+
+  <p>The contact form only works through localhost port 3000.</p>
+
+  <p>Use this link:</p>
+
+  <pre>http://localhost:3000/kontaktivorm.html</pre>
+
+  <p>Do not use this:</p>
+
+  <pre>127.0.0.1:5500
+127.0.0.1:5501
+file:///C:/Users/...</pre>
+
+  <p>Those are not the backend server, so the form cannot save messages there.</p>
+
+  <h2>11. If It Says Wrong Username Or Password</h2>
+
+  <p>Check these things:</p>
+
+  <ol>
+    <li>Make sure the backend is running with <strong>npm start</strong>.</li>
+    <li>Make sure you opened <strong>http://localhost:3000/admin</strong>.</li>
+    <li>Make sure your <strong>.env</strong> file is inside the backend folder.</li>
+    <li>Make sure <strong>ADMIN_USERNAME=admin</strong>.</li>
+    <li>Make sure <strong>ADMIN_PASSWORD=kaspar69</strong>.</li>
+    <li>If you changed .env, stop the server with <strong>Ctrl + C</strong>, then start again with <strong>npm start</strong>.</li>
+  </ol>
+
+  <h2>12. If The Contact Form Says Page Does Not Work</h2>
+
+  <p>You are probably using the wrong port.</p>
+
+  <p>Wrong:</p>
+
+  <pre>127.0.0.1:5501/contact</pre>
+
+  <p>Correct:</p>
+
+  <pre>http://localhost:3000/kontaktivorm.html</pre>
+
+  <h2>13. If Port 3000 Is Already In Use</h2>
+
+  <p>Stop the old backend terminal with:</p>
+
+  <pre>Ctrl + C</pre>
+
+  <p>Then start again:</p>
+
+  <pre>npm start</pre>
+
+  <h2>14. Quick Start Commands</h2>
+
+  <p>Use these commands when you want to start the backend:</p>
+
+  <pre>cd ~/desktop/examdevin/grind-homepage/backend
+npm start</pre>
+
+  <p>Then open:</p>
+
+  <pre>http://localhost:3000/admin</pre>
+
+  <h2>15. Main Rule</h2>
+
+  <p>Use <strong>localhost:3000</strong> for the backend/admin/contact form.</p>
+
+  <p>Do not use <strong>Go Live</strong> for backend features.</p>
+</body>
+</html>
