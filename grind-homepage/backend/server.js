@@ -291,33 +291,410 @@ function pageLayout(title, content) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <title>${escapeHtml(title)}</title>
+  <style>
+    :root {
+      --black: #050505;
+      --dark: #202020;
+      --text: #0b0b0b;
+      --muted: #666666;
+      --line: #d7d7d7;
+      --red: #e31828;
+      --soft: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #ffffff;
+      color: var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .backend-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: grid;
+      grid-template-rows: 54px 30px;
+      align-items: center;
+      min-height: 84px;
+      background: #ffffff;
+      border-bottom: 1px solid #111111;
+    }
+
+    .backend-brand {
+      justify-self: center;
+      color: #000000;
+      font-size: 51px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .backend-brand span {
+      color: #dc5b48;
+    }
+
+    .backend-nav {
+      display: flex;
+      justify-content: center;
+      gap: clamp(16px, 2vw, 34px);
+      padding: 0 24px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .backend-nav a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .backend-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--red);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 180ms ease;
+    }
+
+    .backend-nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .backend-shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 54px 0 80px;
+    }
+
+    .hero-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding: 28px;
+      background: var(--black);
+      color: #ffffff;
+    }
+
+    .hero-card h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 72px);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-card p {
+      max-width: 460px;
+      margin: 10px 0 0;
+      color: #d8d8d8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .panel {
+      margin-bottom: 28px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .07);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button,
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid #111111;
+      background: #111111;
+      color: #ffffff;
+      padding: 0 18px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .button:hover,
+    button:hover {
+      background: var(--red);
+      border-color: var(--red);
+      transform: translateY(-1px);
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .button.secondary:hover {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .button.danger,
+    button.danger {
+      background: #ffffff;
+      color: var(--red);
+      border-color: var(--red);
+    }
+
+    .button.danger:hover,
+    button.danger:hover {
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    .product-list,
+    .message-list,
+    .product-grid {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .product-row,
+    .message-row {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 14px;
+      background: var(--soft);
+      border: 1px solid #ededed;
+    }
+
+    .message-row {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .product-row img,
+    .product-card img,
+    .product-detail-image {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .18));
+    }
+
+    .product-title,
+    .message-title {
+      margin: 0 0 5px;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .meta,
+    .message-meta {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .product-card {
+      min-height: 100%;
+      padding: 22px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, .09);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 190px;
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #111111;
+      background: #ffffff;
+      padding: 13px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: none;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 360px) 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .product-detail-image {
+      width: 100%;
+      height: 360px;
+      background: var(--soft);
+      padding: 26px;
+    }
+
+    .empty {
+      margin: 0;
+      padding: 18px;
+      background: var(--soft);
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    @media (max-width: 760px) {
+      .backend-header {
+        position: relative;
+        grid-template-rows: auto auto;
+        padding-top: 10px;
+      }
+
+      .backend-brand {
+        font-size: 42px;
+      }
+
+      .backend-nav {
+        flex-wrap: wrap;
+        row-gap: 10px;
+        padding-bottom: 14px;
+      }
+
+      .backend-shell {
+        width: min(100% - 24px, 1180px);
+        padding-top: 28px;
+      }
+
+      .product-row,
+      .detail-layout,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <a href="/">Pood</a> |
-    <a href="/backend/tooted">Backend tooted</a> |
-    <a href="/admin">Admin</a>
-  </nav>
-  <hr>
-  ${content}
+  <header class="backend-header">
+    <a class="backend-brand" href="/" aria-label="Grind avaleht">Gr<span>i</span>nd</a>
+    <nav class="backend-nav" aria-label="Backend menüü">
+      <a href="/">Pood</a>
+      <a href="/backend/tooted">Backend tooted</a>
+      <a href="/admin">Admin</a>
+    </nav>
+  </header>
+  <main class="backend-shell">
+    ${content}
+  </main>
 </body>
 </html>`;
 }
 
 function productForm(product = {}, csrfToken = "") {
-  return `<form method="post">
+  return `<form method="post" class="panel">
     ${csrfInput(csrfToken)}
-    <p><label>Nimi<br><input name="name" value="${escapeHtml(product.name)}" required></label></p>
-    <p><label>Kirjeldus<br><textarea name="description" rows="5" required>${escapeHtml(product.description)}</textarea></label></p>
-    <p><label>Pildi tee<br><input name="image" value="${escapeHtml(product.image || "../assets/transparent-bg/tossud1.png")}" required></label></p>
-    <p><label>Hind<br><input name="price" type="number" step="0.01" value="${escapeHtml(product.price || "")}" required></label></p>
-    <p><label>Kategooria<br><input name="category" value="${escapeHtml(product.category || "riietus")}" required></label></p>
-    <p><label>Suurused (komaga eraldatud)<br><input name="sizes" value="${escapeHtml((product.sizes || []).join(", "))}" required></label></p>
-    <p><label>Bränd<br><input name="brand" value="${escapeHtml(product.brand || "")}" required></label></p>
-    <p><label>Tootekood<br><input name="productCode" value="${escapeHtml(product.productCode || "")}" required></label></p>
-    <p><label>Stiilikood<br><input name="styleCode" value="${escapeHtml(product.styleCode || "")}" required></label></p>
-    <button type="submit">Salvesta</button>
+    <div class="panel-header">
+      <h2>Toote andmed</h2>
+      <a class="button secondary" href="/admin">Tagasi</a>
+    </div>
+    <div class="form-grid">
+      <label>Nimi<input name="name" value="${escapeHtml(product.name)}" required></label>
+      <label>Hind<input name="price" type="number" step="0.01" value="${escapeHtml(product.price || "")}" required></label>
+      <label class="wide">Kirjeldus<textarea name="description" rows="5" required>${escapeHtml(product.description)}</textarea></label>
+      <label class="wide">Pildi tee<input name="image" value="${escapeHtml(product.image || "../assets/transparent-bg/tossud1.png")}" required></label>
+      <label>Kategooria<input name="category" value="${escapeHtml(product.category || "riietus")}" required></label>
+      <label>Suurused (komaga eraldatud)<input name="sizes" value="${escapeHtml((product.sizes || []).join(", "))}" required></label>
+      <label>Bränd<input name="brand" value="${escapeHtml(product.brand || "")}" required></label>
+      <label>Tootekood<input name="productCode" value="${escapeHtml(product.productCode || "")}" required></label>
+      <label>Stiilikood<input name="styleCode" value="${escapeHtml(product.styleCode || "")}" required></label>
+    </div>
+    <div class="actions" style="margin-top: 20px;">
+      <button type="submit">Salvesta</button>
+    </div>
   </form>`;
 }
 
@@ -408,12 +785,24 @@ async function handleAdmin(req, res, url) {
 
   if (url.pathname === "/admin/login" && req.method === "GET") {
     const csrf = csrfHeaders(req);
-    sendHtml(res, pageLayout("Admin login", `<h1>Admin sisselogimine</h1>
-      <form method="post">
+    sendHtml(res, pageLayout("Admin login", `<section class="hero-card">
+        <div>
+          <h1>Admin</h1>
+          <p>Logi sisse, et hallata tooteid ja vaadata kontaktivormi sõnumeid.</p>
+        </div>
+      </section>
+      <form method="post" class="panel">
+        <div class="panel-header">
+          <h2>Sisselogimine</h2>
+        </div>
         ${csrfInput(csrf.token)}
-        <p><label>Kasutajanimi<br><input name="username" required></label></p>
-        <p><label>Parool<br><input name="password" type="password" required></label></p>
-        <button type="submit">Logi sisse</button>
+        <div class="form-grid">
+          <label>Kasutajanimi<input name="username" required></label>
+          <label>Parool<input name="password" type="password" required></label>
+        </div>
+        <div class="actions" style="margin-top: 20px;">
+          <button type="submit">Logi sisse</button>
+        </div>
       </form>`), 200, csrf.headers);
     return;
   }
@@ -424,7 +813,11 @@ async function handleAdmin(req, res, url) {
     const admin = db.admins.find((user) => user.username === form.username && verifyPassword(form.password || "", user.passwordHash));
 
     if (!admin) {
-      sendHtml(res, pageLayout("Admin login", "<p>Vale kasutajanimi või parool.</p><p><a href=\"/admin/login\">Proovi uuesti</a></p>"), 401);
+      sendHtml(res, pageLayout("Admin login", `<section class="panel">
+        <h2>Vale kasutajanimi või parool</h2>
+        <p class="empty">Kontrolli .env failis olevat kasutajanime ja parooli.</p>
+        <div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/login">Proovi uuesti</a></div>
+      </section>`), 401);
       return;
     }
 
@@ -455,30 +848,56 @@ async function handleAdmin(req, res, url) {
   if (url.pathname === "/admin" || url.pathname === "/admin/products") {
     if (!requireAdmin(req, res)) return;
     const csrf = csrfHeaders(req);
-    const rows = db.products.map((product) => `<li>
-      ${escapeHtml(product.name)} - ${product.price}€
-      <a href="/admin/products/${product.id}/edit">Muuda</a>
-      <form method="post" action="/admin/products/${product.id}/delete" style="display:inline">
+    const rows = db.products.map((product) => `<li class="product-row">
+      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <div>
+        <p class="product-title">${escapeHtml(product.name)}</p>
+        <p class="meta">${escapeHtml(product.category)} | ${escapeHtml(product.productCode)} | ${product.price.toFixed(2)}€</p>
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="/admin/products/${product.id}/edit">Muuda</a>
+        <form method="post" action="/admin/products/${product.id}/delete">
         ${csrfInput(csrf.token)}
-        <button type="submit">Kustuta</button>
-      </form>
+          <button class="danger" type="submit">Kustuta</button>
+        </form>
+      </div>
     </li>`).join("");
-    const messages = db.contacts.map((message) => `<li>
-      <strong>${escapeHtml(message.name)}</strong> (${escapeHtml(message.email)}, ${escapeHtml(message.phone)})<br>
-      ${escapeHtml(message.message)}
+    const messages = db.contacts.map((message) => `<li class="message-row">
+      <p class="message-title">${escapeHtml(message.name)}</p>
+      <p class="message-meta">${escapeHtml(message.email)} | ${escapeHtml(message.phone || "Telefon puudub")} | ${escapeHtml(new Date(message.createdAt).toLocaleString("et-EE"))}</p>
+      <p>${escapeHtml(message.message)}</p>
     </li>`).join("");
-    sendHtml(res, pageLayout("Admin", `<h1>Admin</h1>
-      <p><a href="/admin/products/new">Lisa uus toode</a></p>
-      <form method="post" action="/admin/logout">${csrfInput(csrf.token)}<button type="submit">Logi välja</button></form>
-      <h2>Tooted</h2><ul>${rows}</ul>
-      <h2>Kontaktivormi sõnumid</h2><ul>${messages || "<li>Sõnumeid pole.</li>"}</ul>`), 200, csrf.headers);
+    sendHtml(res, pageLayout("Admin", `<section class="hero-card">
+        <div>
+          <h1>Admin</h1>
+          <p>Halda Grind poe tooteid, hindu ja kontaktivormi sõnumeid ühest puhtast vaates.</p>
+        </div>
+        <div class="actions">
+          <a class="button" href="/admin/products/new">Lisa uus toode</a>
+          <form method="post" action="/admin/logout">${csrfInput(csrf.token)}<button type="submit">Logi välja</button></form>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Tooted</h2>
+          <span class="meta">${db.products.length} toodet</span>
+        </div>
+        <ul class="product-list">${rows || `<li class="empty">Tooteid pole.</li>`}</ul>
+      </section>
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Kontaktivormi sõnumid</h2>
+          <span class="meta">${db.contacts.length} sõnumit</span>
+        </div>
+        <ul class="message-list">${messages || `<li class="empty">Sõnumeid pole.</li>`}</ul>
+      </section>`), 200, csrf.headers);
     return;
   }
 
   if (url.pathname === "/admin/products/new" && req.method === "GET") {
     if (!requireAdmin(req, res)) return;
     const csrf = csrfHeaders(req);
-    sendHtml(res, pageLayout("Lisa toode", `<h1>Lisa toode</h1>${productForm({}, csrf.token)}`), 200, csrf.headers);
+    sendHtml(res, pageLayout("Lisa toode", `<section class="hero-card"><div><h1>Lisa toode</h1><p>Lisa uus toode koos hinna, pildi, suuruste ja koodidega.</p></div></section>${productForm({}, csrf.token)}`), 200, csrf.headers);
     return;
   }
 
@@ -487,7 +906,7 @@ async function handleAdmin(req, res, url) {
     const form = await readForm(req);
     if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     const error = validateProductForm(form);
-    if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/admin/products/new">Tagasi</a></p>`), 400);
+    if (error) return sendHtml(res, pageLayout("Viga", `<section class="panel"><h2>Viga</h2><p class="empty">${escapeHtml(error)}</p><div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/products/new">Tagasi</a></div></section>`), 400);
     db.products.push(productFromForm(form));
     await writeDb(db);
     redirect(res, "/admin");
@@ -500,7 +919,7 @@ async function handleAdmin(req, res, url) {
     const csrf = csrfHeaders(req);
     const product = db.products.find((item) => item.id === editMatch[1]);
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
-    sendHtml(res, pageLayout("Muuda toodet", `<h1>Muuda toodet</h1>${productForm(product, csrf.token)}`), 200, csrf.headers);
+    sendHtml(res, pageLayout("Muuda toodet", `<section class="hero-card"><div><h1>Muuda toodet</h1><p>Uuenda toote infot ja salvesta muudatused admin vaatesse.</p></div></section>${productForm(product, csrf.token)}`), 200, csrf.headers);
     return;
   }
 
@@ -509,7 +928,7 @@ async function handleAdmin(req, res, url) {
     const form = await readForm(req);
     if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     const error = validateProductForm(form);
-    if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/admin/products/${editMatch[1]}/edit">Tagasi</a></p>`), 400);
+    if (error) return sendHtml(res, pageLayout("Viga", `<section class="panel"><h2>Viga</h2><p class="empty">${escapeHtml(error)}</p><div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/products/${editMatch[1]}/edit">Tagasi</a></div></section>`), 400);
     const index = db.products.findIndex((item) => item.id === editMatch[1]);
     if (index === -1) return sendHtml(res, "Toodet ei leitud", 404);
     db.products[index] = productFromForm(form, editMatch[1]);
@@ -536,13 +955,20 @@ async function handleBackendViews(req, res, url) {
   const db = await readDb();
 
   if (url.pathname === "/backend/tooted") {
-    const products = db.products.map((product) => `<article>
-      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" width="180">
-      <h2><a href="/backend/tooted/${product.id}">${escapeHtml(product.name)}</a></h2>
+    const products = db.products.map((product) => `<a href="/backend/tooted/${product.id}" class="product-card">
+      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <p class="product-title">${escapeHtml(product.name)}</p>
+      <p class="meta">${escapeHtml(product.category)} | ${escapeHtml(product.productCode)}</p>
       <p>${escapeHtml(product.description)}</p>
-      <strong>${product.price}€</strong>
-    </article>`).join("<hr>");
-    sendHtml(res, pageLayout("Backend tooted", `<h1>Tooted</h1>${products}`));
+      <strong>${product.price.toFixed(2)}€</strong>
+    </a>`).join("");
+    sendHtml(res, pageLayout("Backend tooted", `<section class="hero-card">
+        <div>
+          <h1>Tooted</h1>
+          <p>Backend-renderdatud tootevaade JSON-andmebaasist.</p>
+        </div>
+      </section>
+      <section class="product-grid">${products}</section>`));
     return;
   }
 
@@ -550,15 +976,22 @@ async function handleBackendViews(req, res, url) {
   if (detailMatch) {
     const product = db.products.find((item) => item.id === detailMatch[1]);
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
-    sendHtml(res, pageLayout(product.name, `<h1>${escapeHtml(product.name)}</h1>
-      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" width="360">
-      <p>${escapeHtml(product.description)}</p>
-      <p>Hind: <strong>${product.price}€</strong></p>
-      <p>Kategooria: ${escapeHtml(product.category)}</p>
-      <p>Suurused: ${escapeHtml(product.sizes.join(", "))}</p>
-      <p>Bränd: ${escapeHtml(product.brand)}</p>
-      <p>Tootekood: ${escapeHtml(product.productCode)}</p>
-      <p>Stiilikood: ${escapeHtml(product.styleCode)}</p>`));
+    sendHtml(res, pageLayout(product.name, `<section class="panel">
+      <div class="detail-layout">
+        <img class="product-detail-image" src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+        <div>
+          <h2>${escapeHtml(product.name)}</h2>
+          <p>${escapeHtml(product.description)}</p>
+          <p class="product-title">${product.price.toFixed(2)}€</p>
+          <p class="meta">Kategooria: ${escapeHtml(product.category)}</p>
+          <p class="meta">Suurused: ${escapeHtml(product.sizes.join(", "))}</p>
+          <p class="meta">Bränd: ${escapeHtml(product.brand)}</p>
+          <p class="meta">Tootekood: ${escapeHtml(product.productCode)}</p>
+          <p class="meta">Stiilikood: ${escapeHtml(product.styleCode)}</p>
+          <div class="actions" style="margin-top: 22px;"><a class="button secondary" href="/backend/tooted">Tagasi toodetesse</a></div>
+        </div>
+      </div>
+    </section>`));
     return;
   }
 
@@ -569,7 +1002,7 @@ async function handleContact(req, res) {
   const form = await readForm(req);
   if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
   const error = validateContactForm(form);
-  if (error) return sendHtml(res, pageLayout("Viga", `<p>${escapeHtml(error)}</p><p><a href="/kontaktivorm.html">Tagasi</a></p>`), 400);
+  if (error) return sendHtml(res, pageLayout("Viga", `<section class="panel"><h2>Viga</h2><p class="empty">${escapeHtml(error)}</p><div class="actions" style="margin-top: 18px;"><a class="button" href="/kontaktivorm.html">Tagasi</a></div></section>`), 400);
   const db = await readDb();
   db.contacts.push({
     id: crypto.randomUUID(),
@@ -580,7 +1013,7 @@ async function handleContact(req, res) {
     createdAt: new Date().toISOString()
   });
   await writeDb(db);
-  sendHtml(res, pageLayout("Sõnum saadetud", `<h1>Aitäh!</h1><p>Sinu sõnum on salvestatud.</p><p><a href="/kontaktivorm.html">Tagasi</a></p>`));
+  sendHtml(res, pageLayout("Sõnum saadetud", `<section class="hero-card"><div><h1>Aitäh!</h1><p>Sinu sõnum on salvestatud ja nähtav admin lehel.</p></div><a class="button" href="/kontaktivorm.html">Tagasi</a></section>`));
 }
 
 const server = http.createServer(async (req, res) => {
