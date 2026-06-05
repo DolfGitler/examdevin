@@ -2,7 +2,11 @@
   "meta": {
     "name": "Grind JSON database",
     "createdAt": "2026-06-04T14:29:25.733Z",
+<<<<<<< HEAD
     "updatedAt": "2026-06-05T12:21:23.839Z"
+=======
+    "updatedAt": "2026-06-05T15:27:43.099Z"
+>>>>>>> 3a63927 (backend admin design)
   },
   "admins": [
     {
@@ -98,6 +102,7 @@
       "styleCode": "BC26-BLK-CMP"
     }
   ],
+<<<<<<< HEAD
   "contacts": [
     {
       "id": "8daef719-f5b7-44a1-99a2-0bd88e42305e",
@@ -124,4 +129,7 @@
       "createdAt": "2026-06-05T12:21:23.838Z"
     }
   ]
+=======
+  "contacts": []
+>>>>>>> 3a63927 (backend admin design)
 }

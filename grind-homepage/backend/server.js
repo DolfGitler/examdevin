@@ -295,6 +295,7 @@ function pageLayout(title, content) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <title>${escapeHtml(title)}</title>
+<<<<<<< HEAD
   <style>
     :root {
       --black: #050505;
@@ -304,6 +305,19 @@ function pageLayout(title, content) {
       --line: #d7d7d7;
       --red: #e31828;
       --soft: #f5f5f5;
+=======
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #050505;
+      --text: #0b0b0b;
+      --muted: #5f5f5f;
+      --line: #d8d8d8;
+      --soft: #f3f3f3;
+      --red: #e31828;
+>>>>>>> 3a63927 (backend admin design)
     }
 
     * {
@@ -311,10 +325,19 @@ function pageLayout(title, content) {
     }
 
     body {
+<<<<<<< HEAD
       margin: 0;
       min-height: 100vh;
       background: #ffffff;
       color: var(--text);
+=======
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        linear-gradient(135deg, rgba(227, 24, 40, 0.08), transparent 30%),
+        #ffffff;
+>>>>>>> 3a63927 (backend admin design)
       font-family: Inter, Arial, Helvetica, sans-serif;
     }
 
@@ -323,6 +346,7 @@ function pageLayout(title, content) {
       text-decoration: none;
     }
 
+<<<<<<< HEAD
     button,
     input,
     textarea {
@@ -337,11 +361,34 @@ function pageLayout(title, content) {
       grid-template-rows: 54px 30px;
       align-items: center;
       min-height: 84px;
+=======
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-rows: 54px 26px;
+      align-items: center;
+      min-height: 80px;
+>>>>>>> 3a63927 (backend admin design)
       background: #ffffff;
       border-bottom: 1px solid #111111;
     }
 
+<<<<<<< HEAD
     .backend-brand {
+=======
+    .brand {
+      grid-row: 1;
+>>>>>>> 3a63927 (backend admin design)
       justify-self: center;
       color: #000000;
       font-size: 51px;
@@ -350,17 +397,27 @@ function pageLayout(title, content) {
       letter-spacing: -0.04em;
     }
 
+<<<<<<< HEAD
     .backend-brand span {
       color: #dc5b48;
     }
 
     .backend-nav {
+=======
+    .brand span {
+      color: #dc5b48;
+    }
+
+    .admin-nav {
+      grid-row: 2;
+>>>>>>> 3a63927 (backend admin design)
       display: flex;
       justify-content: center;
       gap: clamp(16px, 2vw, 34px);
       padding: 0 24px 8px;
       font-size: 12px;
       font-weight: 800;
+<<<<<<< HEAD
       text-transform: uppercase;
     }
 
@@ -370,18 +427,38 @@ function pageLayout(title, content) {
     }
 
     .backend-nav a::after {
+=======
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .admin-nav a {
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 180ms ease;
+    }
+
+    .admin-nav a::after {
+>>>>>>> 3a63927 (backend admin design)
       position: absolute;
       right: 0;
       bottom: 0;
       left: 0;
       height: 2px;
+<<<<<<< HEAD
       background: var(--red);
       content: "";
+=======
+      content: "";
+      background: var(--red);
+>>>>>>> 3a63927 (backend admin design)
       transform: scaleX(0);
       transform-origin: center;
       transition: transform 180ms ease;
     }
 
+<<<<<<< HEAD
     .backend-nav a:hover::after {
       transform: scaleX(1);
     }
@@ -450,6 +527,136 @@ function pageLayout(title, content) {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+=======
+    .admin-nav a:hover,
+    .admin-nav a:focus-visible {
+      color: var(--red);
+    }
+
+    .admin-nav a:hover::after,
+    .admin-nav a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .admin-main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 58px 0 80px;
+    }
+
+    .page-hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(28px, 5vw, 54px);
+      color: #ffffff;
+      background:
+        linear-gradient(135deg, rgba(5, 5, 5, 0.86), rgba(5, 5, 5, 0.68)),
+        #202020;
+      border: 1px solid #000000;
+      border-radius: 34px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 14px;
+      color: #f0b0b6;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      max-width: 680px;
+      font-size: clamp(38px, 8vw, 86px);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .hero-copy {
+      max-width: 420px;
+      color: #f0f0f0;
+      font-size: 15px;
+    }
+
+    .admin-toolbar,
+    .section-heading,
+    .form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .admin-toolbar,
+    .admin-section,
+    .admin-form-card,
+    .notice-card {
+      margin-top: 28px;
+      padding: clamp(22px, 4vw, 34px);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    .stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      min-width: 140px;
+      padding: 16px 18px;
+      background: var(--soft);
+      border: 1px solid #e8e8e8;
+      border-radius: 18px;
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .stat-card span,
+    label span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+>>>>>>> 3a63927 (backend admin design)
     }
 
     .button,
@@ -458,12 +665,24 @@ function pageLayout(title, content) {
       align-items: center;
       justify-content: center;
       min-height: 42px;
+<<<<<<< HEAD
       border: 1px solid #111111;
       background: #111111;
       color: #ffffff;
       padding: 0 18px;
       font-size: 12px;
       font-weight: 900;
+=======
+      padding: 0 20px;
+      color: #ffffff;
+      background: #000000;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+>>>>>>> 3a63927 (backend admin design)
       text-transform: uppercase;
       cursor: pointer;
       transition: background 180ms ease, color 180ms ease, transform 180ms ease;
@@ -472,6 +691,7 @@ function pageLayout(title, content) {
     .button:hover,
     button:hover {
       background: var(--red);
+<<<<<<< HEAD
       border-color: var(--red);
       transform: translateY(-1px);
     }
@@ -502,6 +722,31 @@ function pageLayout(title, content) {
     .product-list,
     .message-list,
     .product-grid {
+=======
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      color: #000000;
+      background: #eeeeee;
+    }
+
+    .button-danger {
+      background: #7b0d15;
+    }
+
+    .inline-form {
+      display: inline;
+    }
+
+    .admin-section {
+      display: grid;
+      gap: 22px;
+    }
+
+    .product-list,
+    .message-list {
+>>>>>>> 3a63927 (backend admin design)
       display: grid;
       gap: 14px;
       margin: 0;
@@ -510,6 +755,7 @@ function pageLayout(title, content) {
     }
 
     .product-row,
+<<<<<<< HEAD
     .message-row {
       display: grid;
       grid-template-columns: 72px 1fr auto;
@@ -582,10 +828,159 @@ function pageLayout(title, content) {
       display: grid;
       gap: 8px;
       font-size: 12px;
+=======
+    .message-card {
+      display: grid;
+      gap: 18px;
+      padding: 20px;
+      background: #f8f8f8;
+      border: 1px solid #ececec;
+      border-radius: 22px;
+    }
+
+    .product-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+    }
+
+    .product-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .row-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .message-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button-disabled,
+    .button-disabled:hover {
+      color: #8a8a8a;
+      background: #e7e7e7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .empty-state {
+      padding: 22px;
+      color: var(--muted);
+      background: #f8f8f8;
+      border: 1px dashed #bdbdbd;
+      border-radius: 22px;
+    }
+
+    .backend-catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .backend-product-card {
+      display: grid;
+      gap: 16px;
+      padding: 22px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .backend-product-card:hover {
+      border-color: #9f9f9f;
+      transform: translateY(-4px);
+    }
+
+    .backend-product-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: contain;
+      background: #f3f3f3;
+      border-radius: 20px;
+    }
+
+    .backend-product-card strong,
+    .backend-detail-price {
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .backend-detail {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+      gap: clamp(24px, 5vw, 58px);
+      align-items: center;
+      margin-top: 28px;
+      padding: clamp(22px, 4vw, 40px);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+    }
+
+    .backend-detail img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: contain;
+      background: #f3f3f3;
+      border-radius: 24px;
+    }
+
+    .backend-detail-info {
+      display: grid;
+      gap: 18px;
+    }
+
+    .detail-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .detail-list li {
+      padding: 14px;
+      background: #f8f8f8;
+      border-radius: 16px;
+    }
+
+    .detail-list span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+>>>>>>> 3a63927 (backend admin design)
       font-weight: 900;
       text-transform: uppercase;
     }
 
+<<<<<<< HEAD
     input,
     textarea {
       width: 100%;
@@ -655,19 +1050,137 @@ function pageLayout(title, content) {
       .form-grid {
         grid-template-columns: 1fr;
       }
+=======
+    .admin-form-card {
+      max-width: 860px;
+    }
+
+    .admin-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 26px;
+    }
+
+    .admin-form label {
+      display: grid;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .admin-form label.full {
+      grid-column: 1 / -1;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      color: var(--text);
+      background: #eeeeee;
+      border: 0;
+      font: inherit;
+      transition: background 180ms ease, box-shadow 180ms ease;
+    }
+
+    input {
+      height: 56px;
+      padding: 0 20px;
+      border-radius: 999px;
+    }
+
+    textarea {
+      min-height: 170px;
+      padding: 22px 24px;
+      border-radius: 28px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      background: #f6f6f6;
+      box-shadow: 0 0 0 3px rgba(227, 24, 40, 0.2);
+      outline: none;
+    }
+
+    .login-card {
+      max-width: 520px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .login-card .admin-form {
+      grid-template-columns: 1fr;
+    }
+
+    .password-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .password-toggle {
+      min-height: 56px;
+    }
+
+    @media (max-width: 760px) {
+      .admin-main {
+        width: min(100% - 28px, 1180px);
+        padding-top: 34px;
+      }
+
+      .page-hero,
+      .product-row,
+      .backend-detail {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .detail-list {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-form {
+        grid-template-columns: 1fr;
+      }
+
+      .password-row {
+        grid-template-columns: 1fr;
+      }
+
+      .row-actions {
+        justify-content: flex-start;
+      }
+
+      .admin-nav {
+        gap: 14px;
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
+>>>>>>> 3a63927 (backend admin design)
     }
   </style>
 </head>
 <body>
+<<<<<<< HEAD
   <header class="backend-header">
     <a class="backend-brand" href="/" aria-label="Grind avaleht">Gr<span>i</span>nd</a>
     <nav class="backend-nav" aria-label="Backend menüü">
+=======
+  <header class="admin-header">
+    <a class="brand" href="/" aria-label="Grind avaleht">Gr<span>i</span>nd</a>
+    <nav class="admin-nav" aria-label="Backend menüü">
+>>>>>>> 3a63927 (backend admin design)
       <a href="/">Pood</a>
       <a href="/backend/tooted">Backend tooted</a>
       <a href="/admin">Admin</a>
     </nav>
   </header>
+<<<<<<< HEAD
   <main class="backend-shell">
+=======
+  <main class="admin-main">
+>>>>>>> 3a63927 (backend admin design)
     ${content}
   </main>
 </body>
@@ -675,6 +1188,7 @@ function pageLayout(title, content) {
 }
 
 function productForm(product = {}, csrfToken = "") {
+<<<<<<< HEAD
   return `<form method="post" class="panel">
     ${csrfInput(csrfToken)}
     <div class="panel-header">
@@ -693,6 +1207,21 @@ function productForm(product = {}, csrfToken = "") {
       <label>Stiilikood<input name="styleCode" value="${escapeHtml(product.styleCode || "")}" required></label>
     </div>
     <div class="actions" style="margin-top: 20px;">
+=======
+  return `<form class="admin-form" method="post">
+    ${csrfInput(csrfToken)}
+    <label><span>Nimi</span><input name="name" value="${escapeHtml(product.name)}" required></label>
+    <label><span>Bränd</span><input name="brand" value="${escapeHtml(product.brand || "")}" required></label>
+    <label class="full"><span>Kirjeldus</span><textarea name="description" rows="5" required>${escapeHtml(product.description)}</textarea></label>
+    <label class="full"><span>Pildi tee</span><input name="image" value="${escapeHtml(product.image || "../assets/transparent-bg/tossud1.png")}" required></label>
+    <label><span>Hind</span><input name="price" type="number" step="0.01" value="${escapeHtml(product.price || "")}" required></label>
+    <label><span>Kategooria</span><input name="category" value="${escapeHtml(product.category || "riietus")}" required></label>
+    <label class="full"><span>Suurused (komaga eraldatud)</span><input name="sizes" value="${escapeHtml((product.sizes || []).join(", "))}" required></label>
+    <label><span>Tootekood</span><input name="productCode" value="${escapeHtml(product.productCode || "")}" required></label>
+    <label><span>Stiilikood</span><input name="styleCode" value="${escapeHtml(product.styleCode || "")}" required></label>
+    <div class="form-actions full">
+      <a class="button button-secondary" href="/admin">Tagasi</a>
+>>>>>>> 3a63927 (backend admin design)
       <button type="submit">Salvesta</button>
     </div>
   </form>`;
@@ -785,6 +1314,7 @@ async function handleAdmin(req, res, url) {
 
   if (url.pathname === "/admin/login" && req.method === "GET") {
     const csrf = csrfHeaders(req);
+<<<<<<< HEAD
     sendHtml(res, pageLayout("Admin login", `<section class="hero-card">
         <div>
           <h1>Admin</h1>
@@ -804,6 +1334,44 @@ async function handleAdmin(req, res, url) {
           <button type="submit">Logi sisse</button>
         </div>
       </form>`), 200, csrf.headers);
+=======
+    sendHtml(res, pageLayout("Admin login", `<section class="page-hero">
+        <div>
+          <span class="eyebrow">Grind backend</span>
+          <h1>Admin sisselogimine</h1>
+        </div>
+        <p class="hero-copy">Halda tooteid ja kontaktivormi sõnumeid turvalisest Grind admin keskkonnast.</p>
+      </section>
+      <section class="admin-form-card login-card" aria-label="Admin sisselogimine">
+        <h2>Sisene kontole</h2>
+        <form class="admin-form" method="post">
+        ${csrfInput(csrf.token)}
+        <label><span>Kasutajanimi</span><input name="username" autocomplete="username" required></label>
+        <label>
+          <span>Parool</span>
+          <div class="password-row">
+            <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+            <button class="password-toggle button-secondary" type="button" data-password-toggle aria-controls="admin-password">Näita</button>
+          </div>
+        </label>
+        <div class="form-actions">
+          <button type="submit">Logi sisse</button>
+        </div>
+        </form>
+      </section>
+      <script>
+        const passwordInput = document.getElementById("admin-password");
+        const passwordToggle = document.querySelector("[data-password-toggle]");
+
+        if (passwordInput && passwordToggle) {
+          passwordToggle.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            passwordToggle.textContent = isHidden ? "Peida" : "Näita";
+          });
+        }
+      </script>`), 200, csrf.headers);
+>>>>>>> 3a63927 (backend admin design)
     return;
   }
 
@@ -813,10 +1381,18 @@ async function handleAdmin(req, res, url) {
     const admin = db.admins.find((user) => user.username === form.username && verifyPassword(form.password || "", user.passwordHash));
 
     if (!admin) {
+<<<<<<< HEAD
       sendHtml(res, pageLayout("Admin login", `<section class="panel">
         <h2>Vale kasutajanimi või parool</h2>
         <p class="empty">Kontrolli .env failis olevat kasutajanime ja parooli.</p>
         <div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/login">Proovi uuesti</a></div>
+=======
+      sendHtml(res, pageLayout("Admin login", `<section class="notice-card">
+        <span class="eyebrow">Sisselogimine ebaõnnestus</span>
+        <h1>Vale kasutajanimi või parool.</h1>
+        <p>Kontrolli andmed üle ja proovi uuesti.</p>
+        <p><a class="button" href="/admin/login">Proovi uuesti</a></p>
+>>>>>>> 3a63927 (backend admin design)
       </section>`), 401);
       return;
     }
@@ -849,6 +1425,7 @@ async function handleAdmin(req, res, url) {
     if (!requireAdmin(req, res)) return;
     const csrf = csrfHeaders(req);
     const rows = db.products.map((product) => `<li class="product-row">
+<<<<<<< HEAD
       <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
       <div>
         <p class="product-title">${escapeHtml(product.name)}</p>
@@ -890,6 +1467,79 @@ async function handleAdmin(req, res, url) {
           <span class="meta">${db.contacts.length} sõnumit</span>
         </div>
         <ul class="message-list">${messages || `<li class="empty">Sõnumeid pole.</li>`}</ul>
+=======
+      <div>
+        <h3>${escapeHtml(product.name)}</h3>
+        <div class="product-meta">
+          <span>${escapeHtml(product.brand)}</span>
+          <span>${escapeHtml(product.category)}</span>
+          <span>${escapeHtml((product.sizes || []).join(", "))}</span>
+          <strong>${product.price}€</strong>
+        </div>
+      </div>
+      <div class="row-actions">
+        <a class="button button-secondary" href="/admin/products/${product.id}/edit">Muuda</a>
+        <form class="inline-form" method="post" action="/admin/products/${product.id}/delete">
+        ${csrfInput(csrf.token)}
+        <button class="button-danger" type="submit">Kustuta</button>
+      </form>
+      </div>
+    </li>`).join("");
+    const messages = db.contacts.map((message) => {
+      const phone = String(message.phone || "").trim();
+      const telHref = phone.replace(/[^\d+]/g, "");
+      const replySubject = encodeURIComponent("Vastus Grind kontaktivormi sõnumile");
+      const replyBody = encodeURIComponent(`Tere ${message.name},\n\n`);
+
+      return `<li class="message-card">
+      <div>
+        <h3>${escapeHtml(message.name)}</h3>
+        <div class="message-meta">
+          <span>${escapeHtml(message.email)}</span>
+          <span>${escapeHtml(phone || "Telefon puudub")}</span>
+        </div>
+      </div>
+      <p>${escapeHtml(message.message)}</p>
+      <div class="message-actions">
+        <a class="button" href="mailto:${escapeHtml(message.email)}?subject=${replySubject}&body=${replyBody}">Vasta</a>
+        ${telHref ? `<a class="button button-secondary" href="tel:${escapeHtml(telHref)}">Helista</a>` : '<span class="button button-disabled" aria-disabled="true">Helista</span>'}
+        <form class="inline-form" method="post" action="/admin/contacts/${escapeHtml(message.id)}/delete">
+          ${csrfInput(csrf.token)}
+          <button class="button-danger" type="submit" aria-label="Kustuta sõnum">Kustuta</button>
+        </form>
+      </div>
+    </li>`;
+    }).join("");
+    sendHtml(res, pageLayout("Admin", `<section class="page-hero">
+        <div>
+          <span class="eyebrow">Grind admin</span>
+          <h1>Backend juhtpaneel</h1>
+        </div>
+      </section>
+      <section class="admin-toolbar" aria-label="Kiirtegevused">
+        <div class="stats">
+          <div class="stat-card"><strong>${db.products.length}</strong><span>Toodet</span></div>
+          <div class="stat-card"><strong>${db.contacts.length}</strong><span>Sõnumit</span></div>
+        </div>
+        <div class="row-actions">
+          <a class="button" href="/admin/products/new">Lisa uus toode</a>
+          <form class="inline-form" method="post" action="/admin/logout">${csrfInput(csrf.token)}<button class="button-secondary" type="submit">Logi välja</button></form>
+        </div>
+      </section>
+      <section class="admin-section" aria-labelledby="products-title">
+        <div class="section-heading">
+          <h2 id="products-title">Tooted</h2>
+          <p>Muuda hindu, suuruseid ja tooteinfot.</p>
+        </div>
+        ${rows ? `<ul class="product-list">${rows}</ul>` : '<p class="empty-state">Tooteid pole veel lisatud.</p>'}
+      </section>
+      <section class="admin-section" aria-labelledby="messages-title">
+        <div class="section-heading">
+          <h2 id="messages-title">Kontaktivormi sõnumid</h2>
+          <p>Kliendipäringud ja registreerimised.</p>
+        </div>
+        ${messages ? `<ul class="message-list">${messages}</ul>` : '<p class="empty-state">Sõnumeid pole.</p>'}
+>>>>>>> 3a63927 (backend admin design)
       </section>`), 200, csrf.headers);
     return;
   }
@@ -897,7 +1547,21 @@ async function handleAdmin(req, res, url) {
   if (url.pathname === "/admin/products/new" && req.method === "GET") {
     if (!requireAdmin(req, res)) return;
     const csrf = csrfHeaders(req);
+<<<<<<< HEAD
     sendHtml(res, pageLayout("Lisa toode", `<section class="hero-card"><div><h1>Lisa toode</h1><p>Lisa uus toode koos hinna, pildi, suuruste ja koodidega.</p></div></section>${productForm({}, csrf.token)}`), 200, csrf.headers);
+=======
+    sendHtml(res, pageLayout("Lisa toode", `<section class="page-hero">
+        <div>
+          <span class="eyebrow">Tootekataloog</span>
+          <h1>Lisa uus toode</h1>
+        </div>
+        <p class="hero-copy">Sisesta tooteinfo samas struktuuris, mida kasutab Grind avalik tootekaart.</p>
+      </section>
+      <section class="admin-form-card">
+        <h2>Toote andmed</h2>
+        ${productForm({}, csrf.token)}
+      </section>`), 200, csrf.headers);
+>>>>>>> 3a63927 (backend admin design)
     return;
   }
 
@@ -906,7 +1570,16 @@ async function handleAdmin(req, res, url) {
     const form = await readForm(req);
     if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     const error = validateProductForm(form);
+<<<<<<< HEAD
     if (error) return sendHtml(res, pageLayout("Viga", `<section class="panel"><h2>Viga</h2><p class="empty">${escapeHtml(error)}</p><div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/products/new">Tagasi</a></div></section>`), 400);
+=======
+    if (error) return sendHtml(res, pageLayout("Viga", `<section class="notice-card">
+      <span class="eyebrow">Vormi viga</span>
+      <h1>Toodet ei salvestatud</h1>
+      <p>${escapeHtml(error)}</p>
+      <p><a class="button" href="/admin/products/new">Tagasi</a></p>
+    </section>`), 400);
+>>>>>>> 3a63927 (backend admin design)
     db.products.push(productFromForm(form));
     await writeDb(db);
     redirect(res, "/admin");
@@ -919,7 +1592,21 @@ async function handleAdmin(req, res, url) {
     const csrf = csrfHeaders(req);
     const product = db.products.find((item) => item.id === editMatch[1]);
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
+<<<<<<< HEAD
     sendHtml(res, pageLayout("Muuda toodet", `<section class="hero-card"><div><h1>Muuda toodet</h1><p>Uuenda toote infot ja salvesta muudatused admin vaatesse.</p></div></section>${productForm(product, csrf.token)}`), 200, csrf.headers);
+=======
+    sendHtml(res, pageLayout("Muuda toodet", `<section class="page-hero">
+        <div>
+          <span class="eyebrow">Tootekataloog</span>
+          <h1>Muuda toodet</h1>
+        </div>
+        <p class="hero-copy">Uuenda toote nimetust, kirjeldust, hinda, suuruseid ja koode.</p>
+      </section>
+      <section class="admin-form-card">
+        <h2>${escapeHtml(product.name)}</h2>
+        ${productForm(product, csrf.token)}
+      </section>`), 200, csrf.headers);
+>>>>>>> 3a63927 (backend admin design)
     return;
   }
 
@@ -928,7 +1615,16 @@ async function handleAdmin(req, res, url) {
     const form = await readForm(req);
     if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
     const error = validateProductForm(form);
+<<<<<<< HEAD
     if (error) return sendHtml(res, pageLayout("Viga", `<section class="panel"><h2>Viga</h2><p class="empty">${escapeHtml(error)}</p><div class="actions" style="margin-top: 18px;"><a class="button" href="/admin/products/${editMatch[1]}/edit">Tagasi</a></div></section>`), 400);
+=======
+    if (error) return sendHtml(res, pageLayout("Viga", `<section class="notice-card">
+      <span class="eyebrow">Vormi viga</span>
+      <h1>Muudatusi ei salvestatud</h1>
+      <p>${escapeHtml(error)}</p>
+      <p><a class="button" href="/admin/products/${editMatch[1]}/edit">Tagasi</a></p>
+    </section>`), 400);
+>>>>>>> 3a63927 (backend admin design)
     const index = db.products.findIndex((item) => item.id === editMatch[1]);
     if (index === -1) return sendHtml(res, "Toodet ei leitud", 404);
     db.products[index] = productFromForm(form, editMatch[1]);
@@ -948,6 +1644,17 @@ async function handleAdmin(req, res, url) {
     return;
   }
 
+  const contactDeleteMatch = url.pathname.match(/^\/admin\/contacts\/([^/]+)\/delete$/);
+  if (contactDeleteMatch && req.method === "POST") {
+    if (!requireAdmin(req, res)) return;
+    const form = await readForm(req);
+    if (!verifyCsrf(req, form)) return sendHtml(res, "CSRF kontroll ebaõnnestus.", 403);
+    db.contacts = db.contacts.filter((message) => message.id !== contactDeleteMatch[1]);
+    await writeDb(db);
+    redirect(res, "/admin");
+    return;
+  }
+
   sendHtml(res, "Admin lehte ei leitud", 404);
 }
 
@@ -955,6 +1662,7 @@ async function handleBackendViews(req, res, url) {
   const db = await readDb();
 
   if (url.pathname === "/backend/tooted") {
+<<<<<<< HEAD
     const products = db.products.map((product) => `<a href="/backend/tooted/${product.id}" class="product-card">
       <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
       <p class="product-title">${escapeHtml(product.name)}</p>
@@ -969,6 +1677,23 @@ async function handleBackendViews(req, res, url) {
         </div>
       </section>
       <section class="product-grid">${products}</section>`));
+=======
+    const products = db.products.map((product) => `<article class="backend-product-card">
+      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <h3><a href="/backend/tooted/${product.id}">${escapeHtml(product.name)}</a></h3>
+      <p>${escapeHtml(product.description)}</p>
+      <strong>${product.price}€</strong>
+      <a class="button button-secondary" href="/backend/tooted/${product.id}">Vaata detaili</a>
+    </article>`).join("");
+    sendHtml(res, pageLayout("Backend tooted", `<section class="page-hero">
+        <div>
+          <span class="eyebrow">Backend vaade</span>
+          <h1>Tooted</h1>
+        </div>
+        <p class="hero-copy">Serverist loetud tootekataloog samas puhtas Grind stiilis.</p>
+      </section>
+      <section class="backend-catalog">${products}</section>`));
+>>>>>>> 3a63927 (backend admin design)
     return;
   }
 
@@ -976,6 +1701,7 @@ async function handleBackendViews(req, res, url) {
   if (detailMatch) {
     const product = db.products.find((item) => item.id === detailMatch[1]);
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
+<<<<<<< HEAD
     sendHtml(res, pageLayout(product.name, `<section class="panel">
       <div class="detail-layout">
         <img class="product-detail-image" src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
@@ -992,6 +1718,29 @@ async function handleBackendViews(req, res, url) {
         </div>
       </div>
     </section>`));
+=======
+    sendHtml(res, pageLayout(product.name, `<section class="page-hero">
+        <div>
+          <span class="eyebrow">${escapeHtml(product.brand)}</span>
+          <h1>${escapeHtml(product.name)}</h1>
+        </div>
+        <p class="hero-copy">${escapeHtml(product.description)}</p>
+      </section>
+      <article class="backend-detail">
+        <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+        <div class="backend-detail-info">
+          <strong class="backend-detail-price">${product.price}€</strong>
+          <ul class="detail-list">
+            <li><span>Kategooria</span>${escapeHtml(product.category)}</li>
+            <li><span>Suurused</span>${escapeHtml(product.sizes.join(", "))}</li>
+            <li><span>Bränd</span>${escapeHtml(product.brand)}</li>
+            <li><span>Tootekood</span>${escapeHtml(product.productCode)}</li>
+            <li><span>Stiilikood</span>${escapeHtml(product.styleCode)}</li>
+          </ul>
+          <a class="button button-secondary" href="/backend/tooted">Tagasi toodete juurde</a>
+        </div>
+      </article>`));
+>>>>>>> 3a63927 (backend admin design)
     return;
   }
 
