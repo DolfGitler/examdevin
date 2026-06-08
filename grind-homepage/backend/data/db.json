@@ -2,16 +2,12 @@
   "meta": {
     "name": "Grind JSON database",
     "createdAt": "2026-06-04T14:29:25.733Z",
-<<<<<<< HEAD
-    "updatedAt": "2026-06-05T12:21:23.839Z"
-=======
-    "updatedAt": "2026-06-05T15:27:43.099Z"
->>>>>>> 3a63927 (backend admin design)
+    "updatedAt": "2026-06-08T16:00:18.426Z"
   },
   "admins": [
     {
       "username": "admin",
-      "passwordHash": "scrypt$140e5c0585e9eab676a560ebc21ad874$fe005dca8b28dc226a3d65ecaa623eead5cefd47ab6ca3a1d65db7035c8133f54f9eadd880a9b9d61679c87c882eb418891a6cd32370403baa3d4f791787e2ae"
+      "passwordHash": "scrypt$585e7eac5aa8a0ccceccab774d5bb13e$e1f9e22eba7943e97e7142146ebff225bdbdc36d4a67c896e4851b3615f9a693cba5bdffdfb31f31d362071db3c9141ec69eeee6e71d6e749d0b482915e80328"
     }
   ],
   "products": [
@@ -102,7 +98,6 @@
       "styleCode": "BC26-BLK-CMP"
     }
   ],
-<<<<<<< HEAD
   "contacts": [
     {
       "id": "8daef719-f5b7-44a1-99a2-0bd88e42305e",
@@ -129,7 +124,4 @@
       "createdAt": "2026-06-05T12:21:23.838Z"
     }
   ]
-=======
-  "contacts": []
->>>>>>> 3a63927 (backend admin design)
 }
