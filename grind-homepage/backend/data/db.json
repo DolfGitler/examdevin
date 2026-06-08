@@ -2,12 +2,12 @@
   "meta": {
     "name": "Grind JSON database",
     "createdAt": "2026-06-04T14:29:25.733Z",
-    "updatedAt": "2026-06-08T16:00:18.426Z"
+    "updatedAt": "2026-06-08T16:14:08.736Z"
   },
   "admins": [
     {
       "username": "admin",
-      "passwordHash": "scrypt$585e7eac5aa8a0ccceccab774d5bb13e$e1f9e22eba7943e97e7142146ebff225bdbdc36d4a67c896e4851b3615f9a693cba5bdffdfb31f31d362071db3c9141ec69eeee6e71d6e749d0b482915e80328"
+      "passwordHash": "scrypt$e8d11996c3bb9d5a085f5599c525d4bf$be450fb0b2ee29cb6326392b12598f46e161ab97b1e22403a26a2441867018aa92fe9be24ab77db6d89a50ada0ee7e644613d7fd7c1d4f611ffd2fa7d4c31861"
     }
   ],
   "products": [
@@ -98,30 +98,5 @@
       "styleCode": "BC26-BLK-CMP"
     }
   ],
-  "contacts": [
-    {
-      "id": "8daef719-f5b7-44a1-99a2-0bd88e42305e",
-      "name": "devin",
-      "email": "rohtla@gmail.com",
-      "phone": "56680486",
-      "message": "kaspar on lahe",
-      "createdAt": "2026-06-04T14:43:48.724Z"
-    },
-    {
-      "id": "6d6d0c74-4828-48cc-bca5-80509a3dc6b0",
-      "name": "hans joosep suvi",
-      "email": "hjleif@gmail.com",
-      "phone": "735623245",
-      "message": "hans on lahe",
-      "createdAt": "2026-06-04T21:29:01.565Z"
-    },
-    {
-      "id": "b268d31c-febc-435e-be7c-453da0256375",
-      "name": "tanel",
-      "email": "tanel@tannu.com",
-      "phone": "8457348753",
-      "message": "tahan rulaga soita",
-      "createdAt": "2026-06-05T12:21:23.838Z"
-    }
-  ]
+  "contacts": []
 }

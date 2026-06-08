@@ -131,6 +131,13 @@ function escapeHtml(value = "") {
     .replaceAll('"', "&quot;");
 }
 
+function backendImageSrc(imagePath = "") {
+  const value = String(imagePath).trim();
+  if (value.startsWith("../assets/")) return value.replace("../assets/", "/assets/");
+  if (value.startsWith("assets/")) return `/${value}`;
+  return value;
+}
+
 function slugify(value) {
   return value
     .toLowerCase()
@@ -476,12 +483,14 @@ function pageLayout(title, content) {
       transform: translateY(-1px);
     }
 
-    .button.secondary {
+    .button.secondary,
+    button.secondary {
       background: #ffffff;
       color: #111111;
     }
 
-    .button.secondary:hover {
+    .button.secondary:hover,
+    button.secondary:hover {
       background: #111111;
       color: #ffffff;
     }
@@ -597,6 +606,17 @@ function pageLayout(title, content) {
       text-transform: none;
     }
 
+    .password-field {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .password-field input {
+      min-width: 0;
+    }
+
     textarea {
       min-height: 150px;
       resize: vertical;
@@ -652,7 +672,8 @@ function pageLayout(title, content) {
 
       .product-row,
       .detail-layout,
-      .form-grid {
+      .form-grid,
+      .password-field {
         grid-template-columns: 1fr;
       }
     }
@@ -741,11 +762,24 @@ function requireAdmin(req, res) {
 }
 
 async function serveStatic(req, res, pathname) {
-  const baseDir = pathname.startsWith("/assets/") ? ASSETS_DIR : ROOT_DIR;
-  const relativePath = pathname.startsWith("/assets/") ? pathname.replace(/^\/assets\//, "") : (pathname === "/" ? "index.html" : pathname);
-  const filePath = path.normalize(path.join(baseDir, relativePath));
+  let decodedPathname;
 
-  if (!filePath.startsWith(baseDir)) {
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    sendHtml(res, "Vigane URL", 400);
+    return;
+  }
+
+  const isAsset = decodedPathname.startsWith("/assets/");
+  const baseDir = isAsset ? ASSETS_DIR : ROOT_DIR;
+  const relativePath = isAsset
+    ? decodedPathname.replace(/^\/assets\//, "")
+    : (decodedPathname === "/" ? "index.html" : decodedPathname.replace(/^\/+/, ""));
+  const filePath = path.normalize(path.join(baseDir, relativePath));
+  const relativeToBase = path.relative(baseDir, filePath);
+
+  if (relativeToBase.startsWith("..") || path.isAbsolute(relativeToBase)) {
     sendHtml(res, "Keelatud", 403);
     return;
   }
@@ -763,7 +797,7 @@ async function serveStatic(req, res, pathname) {
       ".jpeg": "image/jpeg",
       ".jfif": "image/jpeg"
     }[ext] || "application/octet-stream";
-    if (pathname === "/kontaktivorm.html") {
+    if (decodedPathname === "/kontaktivorm.html") {
       const csrf = csrfHeaders(req);
       const html = file.toString("utf8").replace(
         '<form class="contact-form" action="/contact" method="post">',
@@ -798,12 +832,29 @@ async function handleAdmin(req, res, url) {
         ${csrfInput(csrf.token)}
         <div class="form-grid">
           <label>Kasutajanimi<input name="username" required></label>
-          <label>Parool<input name="password" type="password" required></label>
+          <label>Parool
+            <span class="password-field">
+              <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+              <button class="secondary" type="button" data-password-toggle aria-controls="admin-password">Näita</button>
+            </span>
+          </label>
         </div>
         <div class="actions" style="margin-top: 20px;">
           <button type="submit">Logi sisse</button>
         </div>
-      </form>`), 200, csrf.headers);
+      </form>
+      <script>
+        const passwordInput = document.getElementById("admin-password");
+        const passwordToggle = document.querySelector("[data-password-toggle]");
+
+        if (passwordInput && passwordToggle) {
+          passwordToggle.addEventListener("click", () => {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            passwordToggle.textContent = isHidden ? "Peida" : "Näita";
+          });
+        }
+      </script>`), 200, csrf.headers);
     return;
   }
 
@@ -849,7 +900,7 @@ async function handleAdmin(req, res, url) {
     if (!requireAdmin(req, res)) return;
     const csrf = csrfHeaders(req);
     const rows = db.products.map((product) => `<li class="product-row">
-      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <img src="${escapeHtml(backendImageSrc(product.image))}" alt="${escapeHtml(product.name)}">
       <div>
         <p class="product-title">${escapeHtml(product.name)}</p>
         <p class="meta">${escapeHtml(product.category)} | ${escapeHtml(product.productCode)} | ${product.price.toFixed(2)}€</p>
@@ -866,6 +917,12 @@ async function handleAdmin(req, res, url) {
       <p class="message-title">${escapeHtml(message.name)}</p>
       <p class="message-meta">${escapeHtml(message.email)} | ${escapeHtml(message.phone || "Telefon puudub")} | ${escapeHtml(new Date(message.createdAt).toLocaleString("et-EE"))}</p>
       <p>${escapeHtml(message.message)}</p>
+      <div class="actions">
+        <form method="post" action="/admin/contacts/${escapeHtml(message.id)}/delete">
+          ${csrfInput(csrf.token)}
+          <button class="danger" type="submit">Kustuta</button>
+        </form>
+      </div>
     </li>`).join("");
     sendHtml(res, pageLayout("Admin", `<section class="hero-card">
         <div>
@@ -967,7 +1024,7 @@ async function handleBackendViews(req, res, url) {
 
   if (url.pathname === "/backend/tooted") {
     const products = db.products.map((product) => `<a href="/backend/tooted/${product.id}" class="product-card">
-      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+      <img src="${escapeHtml(backendImageSrc(product.image))}" alt="${escapeHtml(product.name)}">
       <p class="product-title">${escapeHtml(product.name)}</p>
       <p class="meta">${escapeHtml(product.category)} | ${escapeHtml(product.productCode)}</p>
       <p>${escapeHtml(product.description)}</p>
@@ -989,7 +1046,7 @@ async function handleBackendViews(req, res, url) {
     if (!product) return sendHtml(res, "Toodet ei leitud", 404);
     sendHtml(res, pageLayout(product.name, `<section class="panel">
       <div class="detail-layout">
-        <img class="product-detail-image" src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+        <img class="product-detail-image" src="${escapeHtml(backendImageSrc(product.image))}" alt="${escapeHtml(product.name)}">
         <div>
           <h2>${escapeHtml(product.name)}</h2>
           <p>${escapeHtml(product.description)}</p>
